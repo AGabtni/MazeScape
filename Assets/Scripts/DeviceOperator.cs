@@ -6,6 +6,8 @@ public class DeviceOperator : MonoBehaviour
     public float radius = 1.5f;
     void Update()
     {
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * radius, Color.yellow);
+
         if (Input.GetButtonDown("Fire3"))
         {
             Debug.Log("Fire 3");
@@ -17,13 +19,25 @@ public class DeviceOperator : MonoBehaviour
 
 
                 if(hitCollider.name == "Door") {
-                    Debug.Log(hitCollider.transform.parent.parent.name);
 
-                    hitCollider.transform.parent.parent.SendMessage("OnPlayerEntered",
-                    SendMessageOptions.DontRequireReceiver);
+                    if (! hitCollider.transform.parent.parent.GetComponent<MazeDoor>().isOpen)
+                    {
+                        hitCollider.transform.parent.parent.SendMessage("OnPlayerEntered",
+                            SendMessageOptions.DontRequireReceiver);
+
+                    }
+                    
                 }   
 
             }
         }
+    }
+
+
+    void OnDrawGizmosSelected()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(transform.position, radius);
     }
 }
