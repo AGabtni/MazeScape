@@ -34,10 +34,5 @@ public class DeviceOperator : MonoBehaviour
     }
 
 
-    void OnDrawGizmosSelected()
-    {
-        // Draw a yellow sphere at the transform's position
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(transform.position, radius);
-    }
+  
 }

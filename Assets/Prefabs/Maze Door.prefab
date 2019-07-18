@@ -79,7 +79,6 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -171,7 +170,6 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -243,8 +241,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.95, z: 0.475}
-  m_LocalScale: {x: 0.6, y: 0.1, z: 0.05}
+  m_LocalPosition: {x: 0, y: 1.45, z: 0.475}
+  m_LocalScale: {x: 0.6, y: 1.1, z: 0.05}
   m_Children: []
   m_Father: {fileID: 400014}
   m_RootOrder: 2
@@ -295,7 +293,6 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -335,8 +332,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: 0.5, z: 0.475}
-  m_LocalScale: {x: 0.2, y: 1, z: 0.05}
+  m_LocalPosition: {x: 0.4, y: 1, z: 0.475}
+  m_LocalScale: {x: 0.2, y: 2, z: 0.05}
   m_Children: []
   m_Father: {fileID: 400014}
   m_RootOrder: 1
@@ -387,7 +384,6 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -427,8 +423,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4, y: 0.5, z: 0.475}
-  m_LocalScale: {x: 0.2, y: 1, z: 0.05}
+  m_LocalPosition: {x: -0.4, y: 1, z: 0.475}
+  m_LocalScale: {x: 0.2, y: 2, z: 0.05}
   m_Children: []
   m_Father: {fileID: 400014}
   m_RootOrder: 0
@@ -479,7 +475,6 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -542,4 +537,5 @@ MonoBehaviour:
   cell: {fileID: 0}
   otherCell: {fileID: 0}
   direction: 0
+  closeDoorTime: 5
   hinge: {fileID: 400004}
