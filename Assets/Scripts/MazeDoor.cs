@@ -3,6 +3,8 @@ using System.Collections;
 
 public class MazeDoor : MazePassage {
 
+
+    public float closeDoorTime = 5.0f;
 	private static Quaternion
 		normalRotation = Quaternion.Euler(0f, -90f, 0f),
 		mirroredRotation = Quaternion.Euler(0f, 90f, 0f);
@@ -19,37 +21,56 @@ public class MazeDoor : MazePassage {
         {
             if (isMirrored)
             {
-                Debug.Log("Slerping");
                 hinge.localRotation = Quaternion.Slerp(hinge.localRotation, mirroredRotation, 2 * Time.deltaTime);
                 OtherSideOfDoor.hinge.localRotation = Quaternion.Slerp(OtherSideOfDoor.hinge.localRotation, mirroredRotation, 2 * Time.deltaTime);
 
-                if(Quaternion.Angle(hinge.localRotation,mirroredRotation)<= 0)
+                if( Quaternion.Angle(hinge.localRotation, mirroredRotation) <= 0)
                 {
                     openDoor = false;
+                    StartCoroutine("CloseDoor");
                 }
 
             }
             else
             {
-
-
                 hinge.localRotation = Quaternion.Slerp(hinge.localRotation, normalRotation, 2 * Time.deltaTime);
                 OtherSideOfDoor.hinge.localRotation = Quaternion.Slerp(OtherSideOfDoor.hinge.localRotation, normalRotation, 2 * Time.deltaTime);
-                Debug.Log(Quaternion.Angle(hinge.localRotation, normalRotation));
-                if (Quaternion.Angle(hinge.localRotation, normalRotation) <= 90)
+                if (Quaternion.Angle(hinge.localRotation, normalRotation) <= 0 )
                 {
+
                     openDoor = false;
+
+                    StartCoroutine("CloseDoor");
                 }
 
 
             }
 
 
-            //openDoor = false;
         }
+        
+
 
     }
     
+
+    private IEnumerator CloseDoor()
+    {
+        yield return new WaitForSeconds(4.0f);
+
+        while(Quaternion.Angle(hinge.localRotation, Quaternion.identity) > 0)
+        {
+            hinge.localRotation = Quaternion.Slerp(hinge.localRotation, Quaternion.identity, 2 * Time.deltaTime);
+            OtherSideOfDoor.hinge.localRotation = Quaternion.Slerp(OtherSideOfDoor.hinge.localRotation, Quaternion.identity, 2 * Time.deltaTime);
+
+            yield return new WaitForSeconds(0.01f);
+
+        }
+        
+        
+
+
+    }
     private MazeDoor OtherSideOfDoor {
 		get {
 			return otherCell.GetEdge(direction.GetOpposite()) as MazeDoor;

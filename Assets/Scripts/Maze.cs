@@ -157,4 +157,14 @@ public class Maze : MonoBehaviour {
 		rooms.Add(newRoom);
 		return newRoom;
 	}
+
+    public float getSize()
+    {
+
+        return cells.Length;
+            
+      }
+
+
+
 }
