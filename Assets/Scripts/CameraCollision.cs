@@ -60,7 +60,7 @@ public class CameraCollision : MonoBehaviour {
         Vector3 desiredCameraPos = transform.parent.TransformPoint (dollyDir * maxDistance);
 		RaycastHit hit;
 
-		if (Physics.SphereCast (transform.parent.position, 1.0f ,transform.forward, out hit)) {
+		if (Physics.SphereCast (transform.parent.position, 10.0f ,transform.forward, out hit)) {
 
             if((hit.collider.tag != "Cell") && (hit.collider.tag != "Player"))
             {
@@ -72,13 +72,15 @@ public class CameraCollision : MonoBehaviour {
             else
             {
                 distance = maxDistance;
+                Debug.Log("max");
 
             }
 
 
             //Collides but doesnt stop the camera from 
         } else {
-					distance = maxDistance;
+            Debug.Log("max");
+            distance = maxDistance;
 				}
 
 
