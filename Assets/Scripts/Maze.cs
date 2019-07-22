@@ -19,11 +19,14 @@ public class Maze : MonoBehaviour {
 
 	public MazeWall[] wallPrefabs;
 
+    public Transform[] weaponsPrefabs;
+
 	public MazeRoomSettings[] roomSettings;
 
 	private MazeCell[,] cells;
 
-	private List<MazeRoom> rooms = new List<MazeRoom>();
+    [HideInInspector]
+	public List<MazeRoom> rooms = new List<MazeRoom>();
 
 	public IntVector2 RandomCoordinates {
 		get {
@@ -76,7 +79,16 @@ public class Maze : MonoBehaviour {
 	private void DoNextGenerationStep (List<MazeCell> activeCells) {
 		int currentIndex = activeCells.Count - 1;
 		MazeCell currentCell = activeCells[currentIndex];
-		if (currentCell.IsFullyInitialized) {
+
+        Vector3 weaponPosition = currentCell.transform.position + Vector3.up;
+        if (Random.Range(0,1.0f) > 0.95f ) {
+
+
+
+            Transform weapon = Instantiate(weaponsPrefabs[Random.Range(0, weaponsPrefabs.Length)], weaponPosition, Quaternion.identity);
+        }
+
+        if (currentCell.IsFullyInitialized) {
 			activeCells.RemoveAt(currentIndex);
 			return;
 		}
@@ -158,12 +170,22 @@ public class Maze : MonoBehaviour {
 		return newRoom;
 	}
 
-    public float getSize()
+    public float GetRoom()
     {
 
         return cells.Length;
             
-      }
+    }
+
+    public int RoomsNumber
+    {
+        get
+        {
+            return rooms.Count;
+        }
+    }
+
+    
 
 
 

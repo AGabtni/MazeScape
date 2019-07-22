@@ -7,11 +7,13 @@ public class MazeRoom : ScriptableObject {
 
 	public MazeRoomSettings settings;
 	
-	private List<MazeCell> cells = new List<MazeCell>();
+    [HideInInspector]
+	public List<MazeCell> cells = new List<MazeCell>();
 
 	public void Add (MazeCell cell) {
 		cell.room = this;
 		cells.Add(cell);
+        
 	}
 
 	public void Assimilate (MazeRoom room) {
@@ -31,4 +33,15 @@ public class MazeRoom : ScriptableObject {
 			cells[i].Show();
 		}
 	}
+
+
+    public int CellsNumber
+    {
+        get
+        {
+            return cells.Count;
+
+        }
+
+    }
 }

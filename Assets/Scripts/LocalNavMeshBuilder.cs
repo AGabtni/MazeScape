@@ -60,7 +60,8 @@ public class LocalNavMeshBuilder : MonoBehaviour
     {
         float x = quant.x * Mathf.Floor(v.x / quant.x);
         float y = quant.y * Mathf.Floor(v.y / quant.y);
-        float z = quant.z * Mathf.Floor(v.z / quant.z);
+        float z = quant.z * Mathf.Floor(v.z / quant.z );
+
         return new Vector3(x, y, z);
     }
 

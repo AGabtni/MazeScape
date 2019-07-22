@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Cell
+  - Target
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - Player
   - Cell
   - Wall
-  - 
-  - 
+  - Target
+  - Weapon
   - 
   - 
   - 

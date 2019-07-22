@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 using System.Collections;
 
 public class MazeDoor : MazePassage {
 
 
+    private OffMeshLink offMeshLink;
     public float closeDoorTime = 5.0f;
 	private static Quaternion
 		normalRotation = Quaternion.Euler(0f, -90f, 0f),
@@ -14,6 +16,9 @@ public class MazeDoor : MazePassage {
 
 	private bool isMirrored;
 
+    public void Start()
+    {
+    }
     public void Update()
     {
         
@@ -79,6 +84,8 @@ public class MazeDoor : MazePassage {
 	
 	public override void Initialize (MazeCell primary, MazeCell other, MazeDirection direction) {
 		base.Initialize(primary, other, direction);
+        offMeshLink = GetComponent<OffMeshLink>();
+
 
         if (OtherSideOfDoor != null) {
             isMirrored = true;
@@ -94,10 +101,16 @@ public class MazeDoor : MazePassage {
 				child.GetComponent<Renderer>().material = cell.room.settings.wallMaterial;
 			}
 		}
-	}
 
-    
-	public override void OnPlayerEntered () {
+
+   
+        offMeshLink.startTransform = primary.transform;
+        offMeshLink.endTransform = other.transform;
+
+    }
+
+
+    public override void OnPlayerEntered () {
 		//OtherSideOfDoor.hinge.localRotation = hinge.localRotation = isMirrored ? mirroredRotation : normalRotation;
         openDoor = true;
 		OtherSideOfDoor.cell.room.Show();
@@ -115,4 +128,8 @@ public class MazeDoor : MazePassage {
             return openDoor;
         }
     }
+
+
+
+
 }
