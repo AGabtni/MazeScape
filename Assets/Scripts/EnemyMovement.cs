@@ -66,7 +66,11 @@ public class EnemyMovement : MonoBehaviour
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))
                 {
+
+                    //transform.position = Vector3.Slerp(transform.position, target.position, Time.time);
+                    transform.LookAt(target.localPosition);
                     visibleTargets.Add(target);
+
                 }
             }
         }
@@ -75,7 +79,6 @@ public class EnemyMovement : MonoBehaviour
     public void SetDestination(Vector3 targetPosition) {
 
           _navMeshagent.ResetPath();
-            transform.LookAt(targetPosition);
           _navMeshagent.SetDestination(targetPosition);
         
 

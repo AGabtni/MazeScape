@@ -21,11 +21,18 @@ public class NPCLogic : MonoBehaviour
 
         if (movementController.visibleTargets.Count > 0)
         {
-
+            
             for (int i = 0; i < movementController.visibleTargets.Count; i++)
             {
+                transform.LookAt(movementController.visibleTargets[i]);
+                if (Vector3.Distance(movementController.visibleTargets[i].position,transform.position) > distance)
+                {
+                    //transform.LookAt(movementController.visibleTargets[i].position);
+                    //Debug.Log("fenfrj");
+                    movementController.SetDestination(movementController.visibleTargets[i].position);
 
-                movementController.SetDestination(movementController.visibleTargets[i].position);
+
+                }
 
 
                 //Debug.Log("Target found number (" + i + ") is at : " + movementController.visibleTargets[i]);
