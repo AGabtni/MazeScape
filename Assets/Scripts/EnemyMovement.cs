@@ -64,11 +64,12 @@ public class EnemyMovement : MonoBehaviour
             if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
             {
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
+               
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))
                 {
 
                     //transform.position = Vector3.Slerp(transform.position, target.position, Time.time);
-                    transform.LookAt(target.localPosition);
+                    
                     visibleTargets.Add(target);
 
                 }
