@@ -6,9 +6,24 @@ public class NPCLogic : MonoBehaviour
 {
     EnemyMovement movementController;
     public float distance = 5.0f;
+
+    private enum State
+    {
+
+        Idle,
+        Patrolling,
+        Following,
+        Attacking
+    }
+
+
+    State currentState;
+
     private void Start()
     {
         movementController = GetComponent<EnemyMovement>();
+
+        currentState = State.Idle;
     }
 
 
