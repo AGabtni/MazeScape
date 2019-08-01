@@ -407,6 +407,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Agent
       objectReference: {fileID: 0}
+    - target: {fileID: 5750865220359162050, guid: 7ef4bc7e4e1cc54448bb48e3ea3c1d0f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8760755449663257297, guid: 7ef4bc7e4e1cc54448bb48e3ea3c1d0f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -496,6 +501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mazePrefab: {fileID: 11400000, guid: a2395bb8a91944f21b621f2614d6db99, type: 3}
   playerPrefab: {fileID: 912347362, guid: e3cf5b069b9c43247aa37a26ac048c0c, type: 3}
+  aiPrefab: {fileID: 523441853, guid: 1acdaede8fc2a1a458f45e860f8ca7b0, type: 3}
 --- !u!4 &1464554643
 Transform:
   m_ObjectHideFlags: 0
@@ -535,6 +541,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: player Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052901806212095252, guid: e3cf5b069b9c43247aa37a26ac048c0c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6321832369966640903, guid: e3cf5b069b9c43247aa37a26ac048c0c,
         type: 3}

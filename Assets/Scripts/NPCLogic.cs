@@ -6,6 +6,8 @@ public class NPCLogic : MonoBehaviour
 {
     EnemyMovement movementController;
     public float distance = 5.0f;
+    private Transform lastTarget;
+    private Animator animAI;
 
     private enum State
     {
@@ -22,7 +24,7 @@ public class NPCLogic : MonoBehaviour
     private void Start()
     {
         movementController = GetComponent<EnemyMovement>();
-
+        animAI = GetComponent<Animator>();
         currentState = State.Idle;
     }
 
@@ -35,32 +37,29 @@ public class NPCLogic : MonoBehaviour
 
         if (movementController.visibleTargets.Count > 0)
         {
-            
-            for (int i = 0; i < movementController.visibleTargets.Count; i++)
+            currentState = State.Following;
+            Transform currentTarget = movementController.visibleTargets[Random.Range(0,movementController.visibleTargets.Count-1)];
+            Vector3 targetPosition = currentTarget.position;
+            targetPosition.y = transform.position.y;
+            transform.LookAt(targetPosition);
+
+            if (Vector3.Distance(targetPosition, transform.position) > distance)
             {
-                Vector3 targetPosition = movementController.visibleTargets[i].position;
-                targetPosition.y = transform.position.y;
-                transform.LookAt(targetPosition);
+                movementController.SetDestination(targetPosition);
 
 
-                if (Vector3.Distance(movementController.visibleTargets[i].position,transform.position) > distance)
-                {
-                    movementController.SetDestination(movementController.visibleTargets[i].position);
-
-
-                }
-                else
-                {
-                    movementController.ResetDestination();
-                }
             }
+           
         }
         else
         {
-
-            movementController.ResetDestination();
+            currentState = State.Patrolling;
         }
 
-        
+
+        animAI.SetBool("isPatrolling", currentState == State.Patrolling ? true : false);
+        animAI.SetBool("isFollowing", currentState == State.Following ? true : false);
+
+
     }
 }

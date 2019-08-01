@@ -79,14 +79,13 @@ public class Maze : MonoBehaviour {
 	private void DoNextGenerationStep (List<MazeCell> activeCells) {
 		int currentIndex = activeCells.Count - 1;
 		MazeCell currentCell = activeCells[currentIndex];
-
-        Vector3 weaponPosition = currentCell.transform.position + Vector3.up;
+        /*
         if (Random.Range(0,1.0f) > 0.95f ) {
 
-
-
+            Vector3 weaponPosition = currentCell.transform.position + Vector3.up;
             Transform weapon = Instantiate(weaponsPrefabs[Random.Range(0, weaponsPrefabs.Length)], weaponPosition, Quaternion.identity);
         }
+        */
 
         if (currentCell.IsFullyInitialized) {
 			activeCells.RemoveAt(currentIndex);

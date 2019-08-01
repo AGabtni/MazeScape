@@ -23,6 +23,7 @@ public class EnemyMovement : MonoBehaviour
     [Range(0, 360)]
     public float viewAngle;
 
+    private MazeCell currentCell;
 
     public void Start()
     {
@@ -77,6 +78,20 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+
+    public void SetLocation(MazeCell cell)
+    {
+        if (currentCell != null)
+        {
+            currentCell.OnPlayerExited();
+        }
+        currentCell = cell;
+        transform.localPosition = cell.transform.localPosition;
+        currentCell.OnPlayerEntered();
+    }
+
+
+    //Navmesh movement
     public void SetDestination(Vector3 targetPosition) {
 
           _navMeshagent.ResetPath();
