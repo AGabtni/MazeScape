@@ -3,24 +3,24 @@ using System.Collections;
 
 public class DeviceOperator : MonoBehaviour
 {
-    public float radius = 1.5f;
+    public float distanceToDoor = 1.5f;
+    public LayerMask deviceMask;
     void Update()
     {
-        int layerMask = 1 << 8;
-        
-        layerMask = ~layerMask;
+      
         RaycastHit hit;
 
+        #if UNITY_EDITOR
        
         if (Input.GetButtonDown("Fire3"))
         {
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, radius, layerMask))
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, distanceToDoor, deviceMask))
             {
                 Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
                 if (hit.collider.name == "Door")
                 {
 
-                    if (!hit.transform.parent.parent.GetComponent<MazeDoor>().isOpen)
+                    if (!hit.transform.parent.parent.GetComponent<MazeDoor>().isDoorOpen)
                     {
                         hit.transform.parent.parent.SendMessage("OnPlayerEntered",
                             SendMessageOptions.DontRequireReceiver);
@@ -29,10 +29,38 @@ public class DeviceOperator : MonoBehaviour
                 }
 
             }
-        
+
+
+
         }
+        #elif UNITY_ANDROID && !UNITY_EDITOR
+
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+                {
+                    Vector3 touchPosWorld = GetComponentInChildren<Camera>().ScreenToWorldPoint(Input.GetTouch(0).position);
+                    if (Physics.Raycast(touchPosWorld, GetComponentInChildren<Camera>().transform.forward, out hit, deviceMask) )
+                    {
+                        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+                        if (hit.collider.name == "Door")
+                        {
+
+                            if (!hit.transform.parent.parent.GetComponent<MazeDoor>().isDoorOpen)
+                            {
+                                hit.transform.parent.parent.SendMessage("OnPlayerEntered",
+                                    SendMessageOptions.DontRequireReceiver);
+
+                            }
+                        }
+
+                    }
+
+
+
+                }
+
+        #endif
     }
 
 
-  
+
 }

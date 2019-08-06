@@ -5,6 +5,7 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Transform target;
+    private VariableJoystick variableJoystick;
     public float rotSpeed = 15.0f;
     public float moveSpeed = 6.0f;
 
@@ -21,18 +22,38 @@ public class PlayerMovement : MonoBehaviour
 
     private MazeDirection currentDirection;
 
+
+
+
     private CharacterController _charController;
     void Start()
     {
         _charController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
 
+        #if UNITY_ANDROID && !UNITY_EDITOR
+            variableJoystick = GameObject.Find("Movement Joystick").GetComponent<VariableJoystick>();
+
+        #endif
     }
     void Update()
     {
         Vector3 movement = Vector3.zero;
-        float horInput = Input.GetAxis("Horizontal");
-        float vertInput = Input.GetAxis("Vertical");
+
+        //PC INPUT 
+        //float horInput = Input.GetAxis("Horizontal");
+        //float vertInput = Input.GetAxis("Vertical");
+        #if UNITY_ANDROID && !UNITY_EDITOR
+
+
+        float horInput = variableJoystick.Horizontal;
+        float vertInput = variableJoystick.Vertical;
+        #elif UNITY_EDITOR
+
+            float horInput = Input.GetAxis("Horizontal");
+            float vertInput = Input.GetAxis("Vertical");
+        
+        #endif
         if (horInput != 0 || vertInput != 0)
         {
             //Run movement

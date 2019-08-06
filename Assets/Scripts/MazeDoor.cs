@@ -10,58 +10,56 @@ public class MazeDoor : MazePassage {
 	private static Quaternion
 		normalRotation = Quaternion.Euler(0f, -90f, 0f),
 		mirroredRotation = Quaternion.Euler(0f, 90f, 0f);
-
+    private static Vector3 UpPosition , MirroredUp; 
 	public Transform hinge;
-    bool openDoor = false;
 
-	private bool isMirrored;
+    private bool openDoor = false;
+    private bool isOpen = false;
+
+    private bool isMirrored;
 
     public void Start()
     {
+        
     }
     public void Update()
     {
+       
+
+
+        isOpen = Quaternion.Angle(hinge.localRotation, Quaternion.identity) > 0 ? true : false;
         
-        if (openDoor)
+
+    }
+
+
+
+
+
+
+    private IEnumerator OpenDoor()
+    {
+        openDoor = true;
+        OtherSideOfDoor.isDoorOpen = true;
+        while (Quaternion.Angle(hinge.localRotation, isMirrored ? mirroredRotation : normalRotation)  > 0)
         {
-            if (isMirrored)
-            {
-                hinge.localRotation = Quaternion.Slerp(hinge.localRotation, mirroredRotation, 2 * Time.deltaTime);
-                OtherSideOfDoor.hinge.localRotation = Quaternion.Slerp(OtherSideOfDoor.hinge.localRotation, mirroredRotation, 2 * Time.deltaTime);
+            OtherSideOfDoor.hinge.localRotation = hinge.localRotation = Quaternion.Slerp(hinge.localRotation,
+                                                                                         isMirrored ? mirroredRotation : normalRotation,
+                                                                                         2 * Time.deltaTime);
 
-                if( Quaternion.Angle(hinge.localRotation, mirroredRotation) <= 0)
-                {
-                    openDoor = false;
-                    StartCoroutine("CloseDoor");
-                }
-
-            }
-            else
-            {
-                hinge.localRotation = Quaternion.Slerp(hinge.localRotation, normalRotation, 2 * Time.deltaTime);
-                OtherSideOfDoor.hinge.localRotation = Quaternion.Slerp(OtherSideOfDoor.hinge.localRotation, normalRotation, 2 * Time.deltaTime);
-                if (Quaternion.Angle(hinge.localRotation, normalRotation) <= 0 )
-                {
-
-                    openDoor = false;
-
-                    StartCoroutine("CloseDoor");
-                }
-
-
-            }
-
+            yield return new WaitForSeconds(0.01f);
 
         }
-        
+
+        StartCoroutine("CloseDoor");
+
 
 
     }
-    
 
     private IEnumerator CloseDoor()
     {
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(2.0f);
 
         while(Quaternion.Angle(hinge.localRotation, Quaternion.identity) > 0)
         {
@@ -71,8 +69,11 @@ public class MazeDoor : MazePassage {
             yield return new WaitForSeconds(0.01f);
 
         }
-        
-        
+
+        openDoor = false;
+        OtherSideOfDoor.isDoorOpen = false;
+
+
 
 
     }
@@ -84,7 +85,7 @@ public class MazeDoor : MazePassage {
 	
 	public override void Initialize (MazeCell primary, MazeCell other, MazeDirection direction) {
 		base.Initialize(primary, other, direction);
-        offMeshLink = GetComponent<OffMeshLink>();
+        offMeshLink = GetComponentInChildren<OffMeshLink>();
 
 
         if (OtherSideOfDoor != null) {
@@ -103,31 +104,40 @@ public class MazeDoor : MazePassage {
 		}
 
 
-   
-        offMeshLink.startTransform = primary.transform;
-        offMeshLink.endTransform = other.transform;
 
+        //offMeshLink.startTransform = primary.transform;
+        //offMeshLink.endTransform = other.transform;
+        UpPosition = hinge.localPosition;
+        MirroredUp = hinge.localPosition;
+
+        UpPosition.y += 0.9f;
+        MirroredUp.y += 0.9f;
     }
 
 
     public override void OnPlayerEntered () {
-		//OtherSideOfDoor.hinge.localRotation = hinge.localRotation = isMirrored ? mirroredRotation : normalRotation;
-        openDoor = true;
-		OtherSideOfDoor.cell.room.Show();
+        StartCoroutine("OpenDoor");
+        OtherSideOfDoor.cell.room.Show();
 	}
 	
 	public override void OnPlayerExited () {
-		OtherSideOfDoor.hinge.localRotation = hinge.localRotation = Quaternion.identity;
-        openDoor = false;
+		//OtherSideOfDoor.hinge.localRotation = hinge.localRotation = Quaternion.identity;
 		OtherSideOfDoor.cell.room.Hide();
 	}
 
-    public bool isOpen
+    public bool isDoorOpen
     {
         get {
             return openDoor;
         }
+        set
+        {
+            openDoor = value;
+        }
     }
+
+
+   
 
 
 
