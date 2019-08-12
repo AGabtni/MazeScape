@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private MazeDirection currentDirection;
 
 
-
+   
 
     private CharacterController _charController;
     void Start()
@@ -91,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetButtonDown("Jump"))
             {
                 _vertSpeed = jumpSpeed;
+                GetComponent<PlayerHealth>().RestoreHealth();
             }
             else
             {

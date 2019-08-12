@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class NPCLogic : MonoBehaviour
 {
     EnemyMovement movementController;
-    public float distance = 5.0f;
+    public float attackDistance = 0.25f;
     private Transform lastTarget;
     private Animator animAI;
 
@@ -50,7 +50,7 @@ public class NPCLogic : MonoBehaviour
             targetPosition.y = transform.position.y;
             transform.LookAt(targetPosition);
 
-            if (Vector3.Distance(transform.localPosition,movementController.visibleTargets[0].position)> 0.5f)
+            if (Vector3.Distance(transform.localPosition,movementController.visibleTargets[0].position)> attackDistance)
             {
                 currentState = State.Following;
                 Following();
@@ -91,7 +91,7 @@ public class NPCLogic : MonoBehaviour
 
 
         animAI.SetBool("isPatrolling", currentState == State.Patrolling ? true : false);
-        animAI.SetBool("isFollowing", currentState == State.Following ? true : false);
+        animAI.SetBool("isChasing", currentState == State.Following ? true : false);
         animAI.SetBool("isAttacking", currentState == State.Attacking ? true : false);
 
 
@@ -117,12 +117,23 @@ public class NPCLogic : MonoBehaviour
 
     }
 
+    public bool isAttacking = true;
     void Attacking()
     {
+        if (isAttacking == false)
+            return;
+
+        AnimatorStateInfo animationState = <.GetCurrentAnimatorStateInfo(0);
+        AnimatorClipInfo[] myAnimatorClip = myAnimator.GetCurrentAnimatorClipInfo(0);
+        float myTime = myAnimatorClip[0].clip.length * animationState.normalizedTime;
+
+        animAI.SetTrigger("cross"); animAI.SetTrigger("jab"); // animAI.SetTrigger("jab");
+        //animAI.ResetTrigger("jab");
+        isAttacking = false;
         /*
-        animAI.SetTrigger("jab");
+       
         if(animAI.)
-        animAI.ResetTrigger("jab");
+       
         animAI.SetTrigger("cross");
         animAI.ResetTrigger("cross");
 
