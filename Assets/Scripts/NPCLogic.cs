@@ -8,12 +8,15 @@ public class NPCLogic : MonoBehaviour
 {
     EnemyMovement movementController;
     public float attackDistance = 0.25f;
-    private Transform lastTarget;
+
+
     private Animator animAI;
+    private List<AttackAnimationInfo> attackAnimations;
+
 
 
     private MazeCell currentCell;
-   
+
 
     private NavMeshAgent _navmeshAgent ;
     private enum State
@@ -21,7 +24,7 @@ public class NPCLogic : MonoBehaviour
 
         Idle,
         Patrolling,
-        Following,
+        Chasing,
         Attacking
     }
 
@@ -34,7 +37,13 @@ public class NPCLogic : MonoBehaviour
         animAI = GetComponent<Animator>();
         currentState = State.Idle;
         _navmeshAgent = GetComponent<NavMeshAgent>();
-    
+
+
+
+        attackAnimations = new List<AttackAnimationInfo>();
+        attackAnimations.Add(new AttackAnimationInfo("jab", 0.375f));
+        attackAnimations.Add(new AttackAnimationInfo("cross", 0.458f));
+
     }
 
 
@@ -52,8 +61,8 @@ public class NPCLogic : MonoBehaviour
 
             if (Vector3.Distance(transform.localPosition,movementController.visibleTargets[0].position)> attackDistance)
             {
-                currentState = State.Following;
-                Following();
+                currentState = State.Chasing;
+                Chasing();
 
             }
             else
@@ -91,15 +100,12 @@ public class NPCLogic : MonoBehaviour
 
 
         animAI.SetBool("isPatrolling", currentState == State.Patrolling ? true : false);
-        animAI.SetBool("isChasing", currentState == State.Following ? true : false);
+        animAI.SetBool("isChasing", currentState == State.Chasing ? true : false);
         animAI.SetBool("isAttacking", currentState == State.Attacking ? true : false);
 
 
 
     }
-
-
-
 
     void Patrolling()
     {
@@ -118,33 +124,32 @@ public class NPCLogic : MonoBehaviour
     }
 
     public bool isAttacking = true;
+
     void Attacking()
     {
         if (isAttacking == false)
             return;
-
-        AnimatorStateInfo animationState = <.GetCurrentAnimatorStateInfo(0);
-        AnimatorClipInfo[] myAnimatorClip = myAnimator.GetCurrentAnimatorClipInfo(0);
-        float myTime = myAnimatorClip[0].clip.length * animationState.normalizedTime;
-
-        animAI.SetTrigger("cross"); animAI.SetTrigger("jab"); // animAI.SetTrigger("jab");
-        //animAI.ResetTrigger("jab");
-        isAttacking = false;
-        /*
        
-        if(animAI.)
-       
-        animAI.SetTrigger("cross");
-        animAI.ResetTrigger("cross");
+        StartCoroutine("randomAttack",attackAnimations[Random.Range(0,attackAnimations.Count)]);
 
-        animAI.SetTrigger("jab");
-        animAI.ResetTrigger("jab");
-
-        */
 
     }
 
-    void Following ()
+
+    IEnumerator randomAttack(AttackAnimationInfo attack)
+    {
+        isAttacking = false;
+
+        animAI.SetTrigger(attack.title);
+        yield return new WaitForSeconds(attack.duration);
+
+
+        isAttacking = true;
+
+
+    }
+
+    void Chasing ()
     {
         _navmeshAgent.speed = 1.0f;
         movementController.GotoNextPoint();
@@ -152,5 +157,39 @@ public class NPCLogic : MonoBehaviour
     }
 
 
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.tag == "Player" && currentState == State.Attacking)
+        {
+            if (collision.contacts[0].thisCollider.name == "hand.R" )
+            {
+                collision.gameObject.GetComponent<PlayerHealth>().ChangeHealth(-2);
+            }
+            if (collision.contacts[0].thisCollider.name == "hand.L")
+            {
+                collision.gameObject.GetComponent<PlayerHealth>().ChangeHealth(-1);
+            }
+
+
+        }
    
+    }
+
+
+}
+
+
+public class AttackAnimationInfo
+{
+
+    public string title;
+    public float duration;
+
+
+    public AttackAnimationInfo(string t, float d)
+    {
+        title = t;
+        duration = d;
+
+    }
 }
