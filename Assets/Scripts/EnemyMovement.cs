@@ -100,6 +100,8 @@ public class EnemyMovement : MonoBehaviour
 
     public void GoToRandomPoint()
     {
+        if (mazeInstance == null)
+            return;
 
         MazeCell randomCell;
         do
@@ -138,9 +140,14 @@ public class EnemyMovement : MonoBehaviour
         }
         currentCell = cell;
         visitedPoints.Add(currentCell);
+
+
         Vector3 newPosition = cell.transform.localPosition;
         newPosition.y = 0.1f;
         transform.localPosition = newPosition;
+
+
+
         currentCell.OnPlayerEntered();
     }
 }

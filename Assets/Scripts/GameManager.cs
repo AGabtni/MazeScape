@@ -14,27 +14,41 @@ public class GameManager : MonoBehaviour {
 	private PlayerMovement playerInstance;
     private EnemyMovement aiInstance;
 
+    private GameObject agentsHolder;
+
+
+    private void Awake()
+    {
+        agentsHolder = GameObject.Find("AgentsHolder");
+
+
+        //Hide Joysticks when using editor
+        #if UNITY_EDITOR
+                VariableJoystick[] joysticks = FindObjectsOfType<VariableJoystick>();
+                if (joysticks.Length > 0)
+                {
+                    for (int i = 0; i < joysticks.Length; i++)
+                    {
+                        joysticks[i].gameObject.active = false;
+                    }
+                }
+
+
+
+        #endif
+
+    }
+
 
     private void Start() {
 
         InstantMaze();
-        #if UNITY_EDITOR
-        VariableJoystick[] joysticks = FindObjectsOfType<VariableJoystick>();
-        if (joysticks.Length > 0)
-        {
-            for(int i = 0; i < joysticks.Length; i++)
-            {
-                joysticks[i].gameObject.active = false;
-            }
-        }
+        InstantiateAgents();
+            
 
+    }
 
-        
-        #endif
-
-}
-
-private void Update () {
+    private void Update () {
 		if (Input.GetKeyDown(KeyCode.P)) {
 			RestartGame();
 		}
@@ -57,39 +71,47 @@ private void Update () {
         //Camera.main.clearFlags = CameraClearFlags.Depth;
         //Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
 
-        int roomsCount = 0;
         //Material mat = new Material()
-       for(int i=0; i< mazeInstance.rooms.Count; i++)
-        {
 
-
-            if(mazeInstance.rooms[i].CellsNumber == 1)
-            {
-                MazeCell room = mazeInstance.rooms[i].cells[0];
-                roomsCount++;
-                room.transform.GetComponentInChildren<MeshRenderer>().material = Resources.Load("Materials/_Hologram_Rim_Flicker_Blue") as Material;
-
-            }
-            else
-            {
-                //Instantiate Ai in each room :
-
-                EnemyMovement aiInstance = Instantiate(aiPrefab) as EnemyMovement;
-                aiInstance.SetLocation(mazeInstance.rooms[i].RandomCell);
-                aiInstance.GetComponentInChildren<SkinnedMeshRenderer>().material = Resources.Load("Materials/_Hologram_Rim_Flicker_Blue") as Material;
-
-            }
-
-
-          
-
-        }
 
       
 
 
     }
 
+    private void InstantiateAgents()
+    {
+
+        int roomsCount = 0;
+
+        for (int i = 0; i < mazeInstance.rooms.Count; i++)
+        {
+
+
+            if (mazeInstance.rooms[i].CellsNumber == 1)
+            {
+                MazeCell room = mazeInstance.rooms[i].cells[0];
+                roomsCount++;
+                room.transform.GetComponentInChildren<MeshRenderer>().material = Resources.Load("Materials/_Hologram_Rim_Flicker_Blue") as Material;
+
+            }
+
+        }
+
+
+        for(int i=0; i< 50; i++)
+        {
+
+
+            EnemyMovement aiInstance = Instantiate(aiPrefab) as EnemyMovement;
+            aiInstance.SetLocation(mazeInstance.rooms[i].RandomCell);
+            aiInstance.GetComponentInChildren<SkinnedMeshRenderer>().material = Resources.Load("Materials/_Hologram_Rim_Flicker_Blue") as Material;
+
+        }
+
+
+
+    }
 
 	private void RestartGame () {
 		StopAllCoroutines();

@@ -40,20 +40,22 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 movement = Vector3.zero;
 
-        //PC INPUT 
-        //float horInput = Input.GetAxis("Horizontal");
-        //float vertInput = Input.GetAxis("Vertical");
+        
+        //Input based on platform
         #if UNITY_ANDROID && !UNITY_EDITOR
 
 
-        float horInput = variableJoystick.Horizontal;
-        float vertInput = variableJoystick.Vertical;
+            float horInput = variableJoystick.Horizontal;
+            float vertInput = variableJoystick.Vertical;
         #elif UNITY_EDITOR
 
             float horInput = Input.GetAxis("Horizontal");
             float vertInput = Input.GetAxis("Vertical");
         
         #endif
+
+
+
         if (horInput != 0 || vertInput != 0)
         {
             //Run movement
@@ -72,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
 
           
         }
+
         _animator.SetFloat("Speed", movement.sqrMagnitude);
 
 

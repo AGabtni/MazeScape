@@ -12,12 +12,6 @@ public class NPCLogic : MonoBehaviour
 
     private Animator animAI;
     private List<AttackAnimationInfo> attackAnimations;
-
-
-
-    private MazeCell currentCell;
-
-
     private NavMeshAgent _navmeshAgent ;
     private enum State
     {

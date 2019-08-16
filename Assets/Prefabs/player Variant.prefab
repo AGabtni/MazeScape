@@ -171,6 +171,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
+--- !u!114 &5514657492610858235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7052901806212095252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf3fae81511b2054e8065452b4e5f9df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5446364785402228049
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,6 +361,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 4137360376990707587, guid: 3e86aed5598e61943aacb3d2ae2c5b6f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ce0162f376b4340fdbbf0c3f0dd071c9, type: 2}
     - target: {fileID: 6254572876901775140, guid: 3e86aed5598e61943aacb3d2ae2c5b6f,
         type: 3}
       propertyPath: m_Layer
@@ -519,11 +536,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 4137360376990707587, guid: 3e86aed5598e61943aacb3d2ae2c5b6f,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ce0162f376b4340fdbbf0c3f0dd071c9, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e86aed5598e61943aacb3d2ae2c5b6f, type: 3}
 --- !u!1 &7052901806212095252 stripped
