@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 734308a7e1fd44f46aab5d7b4709b9d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDistance: 0.4
+  attackDistance: 0.35
   isAttacking: 1
 --- !u!195 &5979817287124297878
 NavMeshAgent:

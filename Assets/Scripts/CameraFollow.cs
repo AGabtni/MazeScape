@@ -29,8 +29,8 @@ public class CameraFollow : MonoBehaviour {
         #if UNITY_ANDROID && !UNITY_EDITOR
                 variableJoystick = GameObject.Find("Camera Joystick").GetComponent<VariableJoystick>();
         #elif UNITY_EDITOR
-                Cursor.lockState = CursorLockMode.Locked;
-		        Cursor.visible = false;
+                //Cursor.lockState = CursorLockMode.Locked;
+		        //Cursor.visible = false;
         #endif
 
         Vector3 rot = transform.localRotation.eulerAngles;

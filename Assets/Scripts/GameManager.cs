@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour {
 
 
         //Hide Joysticks when using editor
-        #if UNITY_EDITOR
+        #if !UNITY_EDITOR
                 VariableJoystick[] joysticks = FindObjectsOfType<VariableJoystick>();
                 if (joysticks.Length > 0)
                 {

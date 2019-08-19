@@ -10,7 +10,7 @@ public class ItemsDatabase : MonoBehaviour
     GameObject[] grenades;
     GameObject[] ammo;
 
-
+    int itemsNumber;
     private void Awake()
     {
         items = new List<Item>(); ;
@@ -23,7 +23,7 @@ public class ItemsDatabase : MonoBehaviour
         BuildDatabase();
 
 
-
+        itemsNumber = guns.Length + grenades.Length + ammo.Length;
 
     }
 
@@ -44,13 +44,13 @@ public class ItemsDatabase : MonoBehaviour
         }
 
 
-        for (int i = 0; i < grenades.Length; i++)
+        for (int i = guns.Length; i < guns.Length + grenades.Length; i++)
         {
 
             Item newItem = new Item(
                                 i,
                                 "throwable",
-                                grenades[i].name,
+                                grenades[i-guns.Length].name,
                                 new Dictionary<string, int> {
                                     {"Range",10 },
                                     {"Power",80 }
@@ -60,12 +60,12 @@ public class ItemsDatabase : MonoBehaviour
         }
 
 
-        for (int i = 0; i < ammo.Length; i++)
+        for (int i = guns.Length+grenades.Length; i < guns.Length + grenades.Length+ammo.Length; i++)
         {
 
             Item newItem = new Item(
                                 i,
-                                ammo[i].name,
+                                ammo[i-(guns.Length + grenades.Length)].name,
                                 "amunition",
                                 new Dictionary<string, int> {
                                     {"MaxAmount",99 },
@@ -74,7 +74,7 @@ public class ItemsDatabase : MonoBehaviour
             items.Add(newItem);
         }
 
-        Debug.Log(items.Count);
+        Debug.Log(items[0].icon.name);
     }
 
 

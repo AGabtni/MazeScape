@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf3fae81511b2054e8065452b4e5f9df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Hand: {fileID: 3146827098752707486}
 --- !u!1 &5446364785402228049
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,6 +286,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 3e86aed5598e61943aacb3d2ae2c5b6f,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 156747145930054512, guid: 3e86aed5598e61943aacb3d2ae2c5b6f,
         type: 3}
@@ -486,6 +492,12 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: -3408584318596990346, guid: 3e86aed5598e61943aacb3d2ae2c5b6f,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 1076125045945427750, guid: 3e86aed5598e61943aacb3d2ae2c5b6f,
         type: 3}
       propertyPath: m_Layer
@@ -547,6 +559,12 @@ GameObject:
 --- !u!4 &6321832369966640903 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 3e86aed5598e61943aacb3d2ae2c5b6f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1351394096290513949}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &3146827098752707486 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4137360376990707587, guid: 3e86aed5598e61943aacb3d2ae2c5b6f,
     type: 3}
   m_PrefabInstance: {fileID: 1351394096290513949}
   m_PrefabAsset: {fileID: 0}
