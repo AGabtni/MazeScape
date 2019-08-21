@@ -129,6 +129,10 @@ public class PlayerMovement : MonoBehaviour
         }
         movement.y = _vertSpeed;
 
+
+
+
+
         movement *= Time.deltaTime;
         _charController.Move(movement);
     }

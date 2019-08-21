@@ -23,7 +23,7 @@ public class Item
         this.category = category;
         this.name = name;
         this.icon = Resources.Load<Sprite>("Sprites/Items/" + name);
-        Debug.Log(this.icon);
+
 
         this.stats = stats;
 
