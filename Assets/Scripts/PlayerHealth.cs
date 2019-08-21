@@ -13,7 +13,7 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
-        HealthFill = GameObject.Find("HealthFill").GetComponent<Image>();
+        //HealthFill = GameObject.Find("HealthFill").GetComponent<Image>();
 
 
     }

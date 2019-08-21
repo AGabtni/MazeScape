@@ -16,7 +16,7 @@ public class Inventory : MonoBehaviour
     
 
 
-    private void Awake()
+    private void Start()
     {
         inventoryPanel = GameObject.Find("inventory_panel");
         inventorySlots = inventoryPanel.GetComponentsInChildren<Button>();
@@ -27,8 +27,7 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T)) 
-            TakeItem(7);
+      
 
     }
     public void TakeItem(int id)

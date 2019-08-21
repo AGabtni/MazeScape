@@ -4,8 +4,8 @@ using System.Collections;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private Transform target;
-    private VariableJoystick variableJoystick;
+    [SerializeField] private Transform target = null;
+    
     public float rotSpeed = 15.0f;
     public float moveSpeed = 6.0f;
 
@@ -22,8 +22,10 @@ public class PlayerMovement : MonoBehaviour
 
     private MazeDirection currentDirection;
 
+    public bool ikActive = false;
+    [SerializeField] private Transform rightHandObj = null;
+    [SerializeField] private Transform lookObj = null;
 
-   
 
     private CharacterController _charController;
     void Start()
@@ -87,6 +89,8 @@ public class PlayerMovement : MonoBehaviour
             hitGround = hit.distance <= check;  // to be sure check slightly beyond bottom of capsule
         }
 
+
+
         // y movement: possibly jump impulse up, always accel down
         // could _charController.isGrounded instead, but then cannot workaround dropoff edge
         if (hitGround)
@@ -104,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            _animator.SetBool("Jumping", true);
             _vertSpeed += gravity * 5 * Time.deltaTime;
             if (_vertSpeed < terminalVelocity)
             {
@@ -111,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if (_contact != null)
             {   // not right at level start
-                _animator.SetBool("Jumping", true);
+                
             }
 
             // workaround for standing on dropoff edge
@@ -153,5 +158,54 @@ public class PlayerMovement : MonoBehaviour
         transform.localPosition = cell.transform.localPosition;
         currentCell.OnPlayerEntered();
     }
+
+
+
+    //IK animation : 
+
+    private void OnAnimatorIK()
+    {
+        //if the IK is active, set the position and rotation directly to the goal. 
+        if (ikActive)
+        {
+
+            // Set the look target position, if one has been assigned
+            if (lookObj != null)
+            {
+                _animator.SetLookAtWeight(1);
+                _animator.SetLookAtPosition(lookObj.position);
+
+            }
+
+            // Set the right hand target position and rotation, if one has been assigned
+            if (rightHandObj != null)
+            {
+                //_animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
+                _animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
+                _animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
+
+                _animator.SetBoneLocalRotation(HumanBodyBones.RightUpperArm, new Quaternion(10.0f, 0, 0, 0));
+
+                _animator.SetBoneLocalRotation(HumanBodyBones.RightThumbDistal, new Quaternion(90.0f,0,0,0));
+                _animator.SetBoneLocalRotation(HumanBodyBones.RightThumbIntermediate, new Quaternion(90.0f, 0, 0, 0));
+                _animator.SetBoneLocalRotation(HumanBodyBones.RightThumbProximal, new Quaternion(90.0f, 0, 0, 0));
+
+                _animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandObj.position);
+                _animator.SetIKRotation(AvatarIKGoal.RightHand, rightHandObj.rotation);
+                
+            }
+            
+
+        }
+
+        //if the IK is not active, set the position and rotation of the hand and head back to the original position
+        else
+        {
+            _animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
+            _animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0);
+            _animator.SetLookAtWeight(0);
+        }
+    }
 }
+
 
