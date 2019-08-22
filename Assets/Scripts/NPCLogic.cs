@@ -12,7 +12,7 @@ public class NPCLogic : MonoBehaviour
 
     private Animator animAI;
     private List<AttackAnimationInfo> attackAnimations;
-    private NavMeshAgent _navmeshAgent ;
+    private NavMeshAgent _navmeshAgent;
     private enum State
     {
 
@@ -24,6 +24,12 @@ public class NPCLogic : MonoBehaviour
 
 
     State currentState;
+
+
+    public bool ikActive = false;
+    [SerializeField] private Transform rightHandObj = null;
+    [SerializeField] private Transform lookObj = null;
+
 
     private void Start()
     {
@@ -53,7 +59,7 @@ public class NPCLogic : MonoBehaviour
             targetPosition.y = transform.position.y;
             transform.LookAt(targetPosition);
 
-            if (Vector3.Distance(transform.localPosition,movementController.visibleTargets[0].position)> attackDistance)
+            if (Vector3.Distance(transform.localPosition, movementController.visibleTargets[0].position) > attackDistance)
             {
                 currentState = State.Chasing;
                 Chasing();
@@ -107,13 +113,13 @@ public class NPCLogic : MonoBehaviour
         if (!_navmeshAgent.isOnNavMesh || _navmeshAgent.remainingDistance > 0.5f)
             return;
 
-        if(!_navmeshAgent.pathPending && _navmeshAgent.remainingDistance < 0.5f)
+        if (!_navmeshAgent.pathPending && _navmeshAgent.remainingDistance < 0.5f)
         {
             _navmeshAgent.speed = 0.5f;
             movementController.GoToRandomPoint();
 
         }
-            
+
 
     }
 
@@ -123,8 +129,8 @@ public class NPCLogic : MonoBehaviour
     {
         if (isAttacking == false)
             return;
-       
-        StartCoroutine("randomAttack",attackAnimations[Random.Range(0,attackAnimations.Count)]);
+
+        StartCoroutine("randomAttack", attackAnimations[Random.Range(0, attackAnimations.Count)]);
 
 
     }
@@ -143,7 +149,7 @@ public class NPCLogic : MonoBehaviour
 
     }
 
-    void Chasing ()
+    void Chasing()
     {
         _navmeshAgent.speed = 1.0f;
         movementController.GotoNextPoint();
@@ -155,7 +161,7 @@ public class NPCLogic : MonoBehaviour
     {
         if (collision.collider.tag == "Player" && currentState == State.Attacking)
         {
-            if (collision.contacts[0].thisCollider.name == "hand.R" )
+            if (collision.contacts[0].thisCollider.name == "hand.R")
             {
                 collision.gameObject.GetComponent<PlayerHealth>().ChangeHealth(-2);
             }
@@ -166,9 +172,42 @@ public class NPCLogic : MonoBehaviour
 
 
         }
-   
+
     }
 
+
+
+
+    private void OnAnimatorIK()
+    {
+        //if the IK is active, set the position and rotation directly to the goal. 
+        if (ikActive)
+        {
+
+            // Set the look target position, if one has been assigned
+            if (lookObj != null)
+            {
+                animAI.SetLookAtWeight(1);
+                animAI.SetLookAtPosition(lookObj.position);
+
+            }
+
+            // Set the right hand target position and rotation, if one has been assigned
+            if (rightHandObj != null)
+            {
+                //_animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
+                animAI.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
+                animAI.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
+
+
+                animAI.SetIKPosition(AvatarIKGoal.RightHand, rightHandObj.position);
+                animAI.SetIKRotation(AvatarIKGoal.RightHand, rightHandObj.rotation);
+
+            }
+
+
+        }
+    }
 
 }
 

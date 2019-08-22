@@ -184,12 +184,7 @@ public class PlayerMovement : MonoBehaviour
                 _animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
                 _animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
 
-                _animator.SetBoneLocalRotation(HumanBodyBones.RightUpperArm, new Quaternion(10.0f, 0, 0, 0));
-
-                _animator.SetBoneLocalRotation(HumanBodyBones.RightThumbDistal, new Quaternion(90.0f,0,0,0));
-                _animator.SetBoneLocalRotation(HumanBodyBones.RightThumbIntermediate, new Quaternion(90.0f, 0, 0, 0));
-                _animator.SetBoneLocalRotation(HumanBodyBones.RightThumbProximal, new Quaternion(90.0f, 0, 0, 0));
-
+               
                 _animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandObj.position);
                 _animator.SetIKRotation(AvatarIKGoal.RightHand, rightHandObj.rotation);
                 
