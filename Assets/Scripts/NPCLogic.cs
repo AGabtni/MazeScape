@@ -8,6 +8,7 @@ public class NPCLogic : MonoBehaviour
 {
     EnemyMovement movementController;
     public float attackDistance = 0.25f;
+    private Vector3 playerLastSight;
 
 
     private Animator animAI;
@@ -29,6 +30,7 @@ public class NPCLogic : MonoBehaviour
     public bool ikActive = false;
     [SerializeField] private Transform rightHandObj = null;
     [SerializeField] private Transform lookObj = null;
+    [SerializeField] private Transform lookAtObj = null;
 
 
     private void Start()
@@ -55,13 +57,21 @@ public class NPCLogic : MonoBehaviour
 
         if (movementController.visibleTargets.Count > 0)
         {
-            Vector3 targetPosition = movementController.GetLastPlayerPosition;
-            targetPosition.y = transform.position.y;
-            transform.LookAt(targetPosition);
 
-            if (Vector3.Distance(transform.localPosition, movementController.visibleTargets[0].position) > attackDistance)
+
+            
+            playerLastSight = movementController.visibleTargets[0].position;
+            playerLastSight.y = transform.position.y;
+
+
+            
+            float distance = Vector3.Distance(playerLastSight, transform.position);
+            transform.LookAt(playerLastSight);
+            if (distance > 0.3f)
             {
+
                 currentState = State.Chasing;
+               
                 Chasing();
 
             }
@@ -73,27 +83,10 @@ public class NPCLogic : MonoBehaviour
             }
 
 
-            /*
-            Transform currentTarget = movementController.visibleTargets[Random.Range(0,movementController.visibleTargets.Count-1)];
-            Vector3 targetPosition = currentTarget.position;
-            targetPosition.y = transform.position.y;
-            transform.LookAt(targetPosition);
-
-            if (Vector3.Distance(targetPosition, transform.position) > distance)
-            {
-                movementController.SetDestination(targetPosition);
-
-
-            }
-            */
-            //if(!_navmeshAgent.pathPending && _navmeshAgent.remainingDistance < 0.5f && currentState != State.Attacking)
-            //    movementController.GotoNextPoint();
-
-
-
         }
         else
         {
+            
             currentState = State.Patrolling;
             Patrolling();
         }
@@ -109,15 +102,16 @@ public class NPCLogic : MonoBehaviour
 
     void Patrolling()
     {
+        _navmeshAgent.speed = 0.25f;
 
-        if (!_navmeshAgent.isOnNavMesh || _navmeshAgent.remainingDistance > 0.5f)
+        if (!_navmeshAgent.isOnNavMesh || _navmeshAgent.remainingDistance > 0.1f)
             return;
 
-        if (!_navmeshAgent.pathPending && _navmeshAgent.remainingDistance < 0.5f)
+        if (!_navmeshAgent.pathPending && _navmeshAgent.remainingDistance <= 0.1f)
         {
-            _navmeshAgent.speed = 0.5f;
-            movementController.GoToRandomPoint();
 
+            Vector3 destination = movementController.GoToRandomPoint();
+            transform.LookAt(destination);
         }
 
 
@@ -152,31 +146,9 @@ public class NPCLogic : MonoBehaviour
     void Chasing()
     {
         _navmeshAgent.speed = 1.0f;
-        movementController.GotoNextPoint();
+        movementController.MoveToPoint(playerLastSight);
 
     }
-
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.tag == "Player" && currentState == State.Attacking)
-        {
-            if (collision.contacts[0].thisCollider.name == "hand.R")
-            {
-                collision.gameObject.GetComponent<PlayerHealth>().ChangeHealth(-2);
-            }
-            if (collision.contacts[0].thisCollider.name == "hand.L")
-            {
-                collision.gameObject.GetComponent<PlayerHealth>().ChangeHealth(-1);
-            }
-
-
-        }
-
-    }
-
-
-
 
     private void OnAnimatorIK()
     {
@@ -185,14 +157,25 @@ public class NPCLogic : MonoBehaviour
         {
 
             // Set the look target position, if one has been assigned
-            if (lookObj != null)
+
+            if ((currentState == State.Attacking || currentState == State.Chasing)
+                    && movementController.visibleTargets.Count > 0)
             {
                 animAI.SetLookAtWeight(1);
-                animAI.SetLookAtPosition(lookObj.position);
+                animAI.SetLookAtPosition(movementController.visibleTargets[0].position);
 
             }
+            if (currentState == State.Patrolling && movementController.GetCurrentDestination != Vector3.zero)
+            {
 
-            // Set the right hand target position and rotation, if one has been assigned
+                animAI.SetLookAtWeight(1);
+                animAI.SetLookAtPosition(lookAtObj.position);
+
+
+            }
+          
+
+            /* Set the right hand target position and rotation, if one has been assigned
             if (rightHandObj != null)
             {
                 //_animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
@@ -204,10 +187,35 @@ public class NPCLogic : MonoBehaviour
                 animAI.SetIKRotation(AvatarIKGoal.RightHand, rightHandObj.rotation);
 
             }
-
+            */
 
         }
     }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.tag == "Player" && currentState == State.Attacking)
+        {
+            if (collision.contacts[0].thisCollider.name == "hand.R")
+            {
+                collision.gameObject.GetComponent<PlayerHealth>().ChangeHealth(-2);
+                Debug.Log("CROSS THROWN");
+            }
+            if (collision.contacts[0].thisCollider.name == "hand.L")
+            {
+                Debug.Log("JAB THROWN");
+
+                collision.gameObject.GetComponent<PlayerHealth>().ChangeHealth(-1);
+            }
+
+
+        }
+
+    }
+
+
+
+
+    
 
 }
 

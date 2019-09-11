@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6500000}
   - component: {fileID: 2300000}
   - component: {fileID: 6711708423826176822}
-  - component: {fileID: 7724378558740265651}
+  - component: {fileID: 4768964330472058337}
   m_Layer: 13
   m_Name: Door
   m_TagString: Untagged
@@ -106,22 +106,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d06217127c23a7d49b9c7dbb4ac9e395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7724378558740265651
-MonoBehaviour:
+--- !u!191 &4768964330472058337
+OffMeshLink:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 932364128a111254abf9e05f40ec9b77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 0
-  m_Area: 0
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
+  serializedVersion: 3
+  m_AreaIndex: 0
+  m_AgentTypeID: 0
+  m_Start: {fileID: 7441708550983555044}
+  m_End: {fileID: 6418591653572086522}
+  m_CostOverride: -1
+  m_BiDirectional: 1
+  m_Activated: 1
+  m_AutoUpdatePositions: 1
 --- !u!1 &100004
 GameObject:
   m_ObjectHideFlags: 0

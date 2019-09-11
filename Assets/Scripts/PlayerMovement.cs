@@ -5,7 +5,11 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Transform target = null;
-    
+
+    public Transform inventoryPanel;
+    public Camera playerCamera;
+
+
     public float rotSpeed = 15.0f;
     public float moveSpeed = 6.0f;
 
@@ -26,8 +30,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform rightHandObj = null;
     [SerializeField] private Transform lookObj = null;
 
-
+    public LayerMask groundExcludeMask;
     private CharacterController _charController;
+
+
+
     void Start()
     {
         _charController = GetComponent<CharacterController>();
@@ -80,57 +87,32 @@ public class PlayerMovement : MonoBehaviour
         _animator.SetFloat("Speed", movement.sqrMagnitude);
 
 
-        // raycast down to address steep slopes and dropoff edge
-        bool hitGround = false;
-        RaycastHit hit;
-        if (_vertSpeed < 0 && Physics.Raycast(transform.position, Vector3.down, out hit))
-        {
-            float check = (_charController.height + _charController.radius) / 1.9f;
-            hitGround = hit.distance <= check;  // to be sure check slightly beyond bottom of capsule
-        }
-
+       
 
 
         // y movement: possibly jump impulse up, always accel down
         // could _charController.isGrounded instead, but then cannot workaround dropoff edge
-        if (hitGround)
+        if (_charController.isGrounded)
         {
+
             if (Input.GetButtonDown("Jump"))
             {
                 _vertSpeed = jumpSpeed;
                 GetComponent<PlayerHealth>().RestoreHealth();
+                _animator.SetBool("Jumping", true);
+
             }
             else
             {
-                _vertSpeed = minFall;
-                _animator.SetBool("Jumping", false);
+                _vertSpeed = 0;
             }
         }
         else
         {
-            _animator.SetBool("Jumping", true);
-            _vertSpeed += gravity * 5 * Time.deltaTime;
-            if (_vertSpeed < terminalVelocity)
-            {
-                _vertSpeed = terminalVelocity;
-            }
-            if (_contact != null)
-            {   // not right at level start
-                
-            }
-
-            // workaround for standing on dropoff edge
-            if (_charController.isGrounded)
-            {
-                if (Vector3.Dot(movement, _contact.normal) < 0)
-                {
-                    movement = _contact.normal * moveSpeed;
-                }
-                else
-                {
-                    movement += _contact.normal * moveSpeed;
-                }
-            }
+            _animator.SetBool("Jumping", false);
+            _vertSpeed += gravity *5* Time.deltaTime;
+          
+           
         }
         movement.y = _vertSpeed;
 
@@ -140,6 +122,21 @@ public class PlayerMovement : MonoBehaviour
 
         movement *= Time.deltaTime;
         _charController.Move(movement);
+
+        if ((Input.touchCount > 0) && (Input.GetTouch(0).phase == TouchPhase.Began))
+        {
+            Ray raycast = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            RaycastHit raycastHit;
+            if (Physics.Raycast(raycast, out raycastHit))
+            {
+                Interactable interactable = raycastHit.transform.GetComponent<Interactable>();
+                if (interactable != null)
+                {
+                    interactable.OnFocused(transform);
+                }
+            }
+        }
+
     }
 
     // store collision to use in Update

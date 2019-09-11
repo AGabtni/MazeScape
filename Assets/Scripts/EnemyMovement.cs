@@ -14,17 +14,17 @@ public class EnemyMovement : MonoBehaviour
     [HideInInspector]
     public List<Transform> visibleTargets = new List<Transform>();
 
-    private Vector3 playerLastSight;
+    
+
     Animator anim;
     NavMeshAgent _navMeshagent;
-    Rigidbody rigidbody;
+    new Rigidbody rigidbody;
     public LayerMask targetMask;
     public LayerMask obstacleMask;
 
     public float viewRadius;
     [Range(0, 360)]
     public float viewAngle;
-    private int destPoint = 0;
 
     int[] validChoices = new int[] { -1, 1 };
 
@@ -34,7 +34,7 @@ public class EnemyMovement : MonoBehaviour
     public List<MazeCell> visitedPoints;
 
 
-
+   
     public void Start()
     {
         _navMeshagent = this.GetComponent<NavMeshAgent>();
@@ -42,17 +42,10 @@ public class EnemyMovement : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         mazeInstance = FindObjectOfType<Maze>();
         visitedPoints = new List<MazeCell>();
-        StartCoroutine("FindTargetsWithDelay", 0.1f);
-
+        StartCoroutine("FindTargetsWithDelay", 0.07f);
        
     }
 
-    private void Update()
-    {
-     
-
-        
-    }
 
 
     IEnumerator FindTargetsWithDelay(float delay)
@@ -81,7 +74,6 @@ public class EnemyMovement : MonoBehaviour
                 {
 
                     //transform.position = Vector3.Slerp(transform.position, target.position, Time.time);
-                    playerLastSight = target.position;
                     visibleTargets.Add(target);
 
                 }
@@ -92,16 +84,10 @@ public class EnemyMovement : MonoBehaviour
     
 
 
-
-    public void GotoNextPoint()
-    {   
-        _navMeshagent.destination = playerLastSight;
-    }
-
-    public void GoToRandomPoint()
+    public Vector3 GoToRandomPoint()
     {
         if (mazeInstance == null)
-            return;
+            return Vector3.zero;
 
         MazeCell randomCell;
         do
@@ -111,25 +97,33 @@ public class EnemyMovement : MonoBehaviour
         } while (visitedPoints.Contains(randomCell));
 
         visitedPoints.Add(randomCell);
-        _navMeshagent.destination = randomCell.transform.position;
+        MoveToPoint( randomCell.transform.position);
+
+
+        return randomCell.transform.position;
+    }
+
+
+
+
+    public void MoveToPoint(Vector3 destination)
+    {
+        this.GetCurrentDestination = destination;
+        _navMeshagent.isStopped = false;
+        _navMeshagent.enabled = true;
+        _navMeshagent.SetDestination(destination);
+
     }
 
     public void ResetDestination()
     {
+        this.GetCurrentDestination = Vector3.zero;
+
         _navMeshagent.ResetPath();
 
-
     }
 
-
-    public Vector3 GetLastPlayerPosition
-    {
-        get
-        {
-            return playerLastSight;
-        }
-    }
-
+    public Vector3 GetCurrentDestination { get; private set; }
 
     //SET LOCATION ON A CELL
     public void SetLocation(MazeCell cell)
@@ -150,4 +144,7 @@ public class EnemyMovement : MonoBehaviour
 
         currentCell.OnPlayerEntered();
     }
+
+
+
 }

@@ -6,6 +6,13 @@ public class ItemsDatabase : MonoBehaviour
 {
     public List<Item> items;
 
+
+
+    public string weaponsRep = "Prefabs/Weapon/Guns";
+    public string throwableRep = "Prefabs/Weapon/Grenades";
+    public string ammoRep = "Prefabs/Ammo";
+
+
     GameObject[] guns;
     GameObject[] grenades;
     GameObject[] ammo;
@@ -15,9 +22,15 @@ public class ItemsDatabase : MonoBehaviour
     {
         items = new List<Item>(); ;
 
-        guns = Resources.LoadAll<GameObject>("Prefabs/Guns");
-        grenades = Resources.LoadAll<GameObject>("Prefabs/Grenades");
-        ammo = Resources.LoadAll<GameObject>("Prefabs/Ammo");
+
+
+        //Items repertories
+
+
+
+        guns = Resources.LoadAll<GameObject>(weaponsRep);
+        grenades = Resources.LoadAll<GameObject>(throwableRep);
+        ammo = Resources.LoadAll<GameObject>(ammoRep);
 
 
         BuildDatabase();
@@ -35,7 +48,7 @@ public class ItemsDatabase : MonoBehaviour
 
             Item newItem = new Item(
                                 i,
-                                "weapon",
+                                Item.Item_Category.Weapon,
                                 guns[i].name,
                                 new Dictionary<string, int> {
                                     {"Defence",1 }
@@ -49,7 +62,7 @@ public class ItemsDatabase : MonoBehaviour
 
             Item newItem = new Item(
                                 i,
-                                "throwable",
+                                Item.Item_Category.Weapon,
                                 grenades[i-guns.Length].name,
                                 new Dictionary<string, int> {
                                     {"Range",10 },
@@ -65,8 +78,8 @@ public class ItemsDatabase : MonoBehaviour
 
             Item newItem = new Item(
                                 i,
+                                Item.Item_Category.Ammunition,
                                 ammo[i-(guns.Length + grenades.Length)].name,
-                                "amunition",
                                 new Dictionary<string, int> {
                                     {"MaxAmount",99 },
                                     {"Power",5}
@@ -87,7 +100,7 @@ public class ItemsDatabase : MonoBehaviour
     }
 
     //Get item by its category
-    public Item GetItem(string category)
+    public Item GetItem(Item.Item_Category category)
     {
         return items.Find(item => item.category == category);
 

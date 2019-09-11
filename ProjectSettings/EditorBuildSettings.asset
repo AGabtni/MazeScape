@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Lobby.unity
     guid: 1f10cff0001db8749b7a9d938eaaf34f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainScene.unity
     guid: bee80beccdfe4447d99731f5b87b2e06
+  - enabled: 1
+    path: Assets/Scenes/Whiteboxing_Player.unity
+    guid: 71fd9d515f94f6b4db7a2c79dfb65ea2
   m_configObjects: {}

@@ -6,29 +6,27 @@ public class Interactable : MonoBehaviour
 {
 
     public float interactionRadius = 1f;
-
+    public LayerMask interactiveAgents;
 
     bool isFocus = false;
     bool hasInteracted = false;
 
     Transform agent;
 
+    public virtual void Interact()
+    {
 
+    }
     private void Update()
     {
-        if (isFocus)
+        Collider[] colliders = Physics.OverlapSphere(transform.position, interactionRadius,interactiveAgents);
+
+        if (colliders.Length > 0)
         {
-
-            float distance = Vector3.Distance(agent.position, transform.position);
-            if(distance<= interactionRadius)
-            {
-
-                Debug.Log("Pick me up ui &/or effect");
-                hasInteracted = true;
-
-
-            }
+            Debug.Log("Here");
         }
+
+
     }
 
 
@@ -37,7 +35,11 @@ public class Interactable : MonoBehaviour
 
 
         isFocus = true;
+        hasInteracted = false;
         agent = agentTransform;
+
+        Debug.Log("This item is focused on");
+
     }
 
     public void OnDefocused(Transform agentTransform)
@@ -45,6 +47,7 @@ public class Interactable : MonoBehaviour
 
 
         isFocus = false;
+        hasInteracted = false;
         agent = null;
     }
 

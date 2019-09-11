@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour {
 
     private void Update () {
 		if (Input.GetKeyDown(KeyCode.P)) {
-			RestartGame();
+			//RestartGame();
 		}
 
 
@@ -60,6 +60,8 @@ public class GameManager : MonoBehaviour {
         }
 	}
 
+
+    //Instantiate Maze
     private void InstantMaze()
     {
         //Camera.main.clearFlags = CameraClearFlags.Skybox;
@@ -71,7 +73,6 @@ public class GameManager : MonoBehaviour {
         //Camera.main.clearFlags = CameraClearFlags.Depth;
         //Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
 
-        //Material mat = new Material()
 
 
       
@@ -99,14 +100,14 @@ public class GameManager : MonoBehaviour {
         }
 
 
-        for(int i=0; i< 50; i++)
+        for(int i=0; i< 15; i++)
         {
 
 
             EnemyMovement aiInstance = Instantiate(aiPrefab) as EnemyMovement;
             aiInstance.SetLocation(mazeInstance.rooms[i].RandomCell);
             aiInstance.GetComponentInChildren<SkinnedMeshRenderer>().material = Resources.Load("Materials/_Hologram_Rim_Flicker_Blue") as Material;
-
+            aiInstance.name = aiInstance.name + i;
         }
 
 

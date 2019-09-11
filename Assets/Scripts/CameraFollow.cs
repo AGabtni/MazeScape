@@ -44,12 +44,12 @@ public class CameraFollow : MonoBehaviour {
 
   
 
-#if UNITY_ANDROID && !UNITY_EDITOR
+            #if UNITY_ANDROID && !UNITY_EDITOR
 
         
                 mouseX = variableJoystick.Horizontal;
                 mouseY = variableJoystick.Vertical;
-        #elif UNITY_EDITOR
+            #elif UNITY_EDITOR
 
                 mouseX = Input.GetAxis ("Mouse X");
                 mouseY = Input.GetAxis ("Mouse Y");
@@ -68,8 +68,7 @@ public class CameraFollow : MonoBehaviour {
         Quaternion localRotation = Quaternion.Euler (rotX, rotY, 0.0f);
 		transform.rotation = localRotation;
 
-
-	}
+    }
 
 	void LateUpdate () {
 		CameraUpdater ();

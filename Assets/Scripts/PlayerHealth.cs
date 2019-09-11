@@ -8,14 +8,27 @@ public class PlayerHealth : MonoBehaviour
 {
     private Image HealthFill;
     public float maxHealth = 100.0f;
+    private MeshDestroy meshController;
+
+
     [SerializeField] private float currentHealth;
 
     private void Start()
     {
         currentHealth = maxHealth;
-        //HealthFill = GameObject.Find("HealthFill").GetComponent<Image>();
+        HealthFill = GameObject.Find("HealthFill").GetComponent<Image>();
+        meshController = GetComponentInChildren<MeshDestroy>();
 
+    }
 
+    private void LateUpdate()
+    {
+        if(currentHealth <= 0 && GetComponent<PlayerMovement>().enabled)
+        {
+
+            meshController.DestroyMesh();
+            GetComponent<PlayerMovement>().enabled = false;
+        }
     }
 
 
@@ -41,4 +54,7 @@ public class PlayerHealth : MonoBehaviour
 
 
     }
+
+
+
 }
