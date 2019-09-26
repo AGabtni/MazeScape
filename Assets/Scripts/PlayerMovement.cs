@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     public LayerMask groundExcludeMask;
     private CharacterController _charController;
+    private VariableJoystick variableJoystick ;
 
 
 
@@ -123,16 +124,23 @@ public class PlayerMovement : MonoBehaviour
         movement *= Time.deltaTime;
         _charController.Move(movement);
 
+
+        //Pickup object if touched 
         if ((Input.touchCount > 0) && (Input.GetTouch(0).phase == TouchPhase.Began))
         {
-            Ray raycast = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            Ray raycast = playerCamera.ScreenPointToRay(Input.GetTouch(0).position);
             RaycastHit raycastHit;
             if (Physics.Raycast(raycast, out raycastHit))
             {
-                Interactable interactable = raycastHit.transform.GetComponent<Interactable>();
-                if (interactable != null)
+               
+                if (raycastHit.transform.GetComponent<Interactable>())
                 {
-                    interactable.OnFocused(transform);
+                    Interactable interactable = raycastHit.transform.GetComponent<Interactable>();
+                    if (interactable.canInteract)
+                    {
+                        interactable.Interact();
+                        Debug.Log("Has interacted");
+                    }
                 }
             }
         }

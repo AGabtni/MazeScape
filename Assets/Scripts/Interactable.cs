@@ -10,20 +10,28 @@ public class Interactable : MonoBehaviour
 
     bool isFocus = false;
     bool hasInteracted = false;
-
+    public bool canInteract = false;
     Transform agent;
 
     public virtual void Interact()
     {
-
+        Destroy(this.gameObject);
     }
-    private void Update()
+    private void FixedUpdate()
     {
+
         Collider[] colliders = Physics.OverlapSphere(transform.position, interactionRadius,interactiveAgents);
 
         if (colliders.Length > 0)
         {
-            Debug.Log("Here");
+            Debug.Log("Player near by ");
+            canInteract = true;
+            //Here put a ui shit to show that item is nearby
+        }
+        else
+        {
+
+            canInteract = false;
         }
 
 

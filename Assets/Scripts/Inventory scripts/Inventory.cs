@@ -1,81 +1,73 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+
 
 public class Inventory : MonoBehaviour
 {
+    #region Singleton
+    public static Inventory instance;
 
-    List<Item> characterItems = new List<Item>();
-    public GameObject Hand;
-    private ItemsDatabase itemsDatabase;
-    private GameObject inventoryPanel;
-    private Button[] inventorySlots;
-    private int freeSlot = 0;
+    private void Awake()
+    {
+        if(instance != null)
+        {
+
+            Debug.LogWarning("There is more than one inventory instance ");
+
+            return;
+        }
+
+
+        instance = this;
+    }
+
+
+    #endregion
+
+    //Callback for adding/removing item
+    public delegate void OnItemChanged();
+    public OnItemChanged onItemChangedCallback;
+
+
+    public int maxSpace = 15;
+
+    public List<Item> itemsList = new List<Item>();
 
     
-
-
-    private void Start()
-    {
-        inventoryPanel = GameObject.Find("inventory_panel");
-        inventorySlots = inventoryPanel.GetComponentsInChildren<Button>();
-        itemsDatabase = FindObjectOfType<ItemsDatabase>();
-
-        ClearSlots();
-    }
-
-    private void Update()
-    {
-      
-
-    }
-    public void TakeItem(int id)
-    {
-        
-
-        
-        Item itemToAdd = itemsDatabase.GetItem(0);
-        inventorySlots[freeSlot].transform.GetChild(0).GetComponent<Image>().sprite = itemToAdd.icon;
-
-
-        GameObject itemPrefab = Resources.Load<GameObject>("Prefabs/Guns/"+itemToAdd.name);
-        SkinnedMeshRenderer itemInstance = Instantiate<SkinnedMeshRenderer>(itemPrefab.GetComponent<SkinnedMeshRenderer>());
-        itemInstance.transform.position = Hand.transform.position;
-        itemInstance.transform.rotation = Hand.transform.localRotation;
-
-        itemInstance.transform.parent = Hand.transform;
-
-        characterItems.Add(itemToAdd);
-
-        
-
-
-        if(freeSlot<inventorySlots.Length)
-            freeSlot++;
-    }
-
-
-    public void ClearSlots()
+    public bool Add(Item item)
     {
 
-        for(int i=0; i< inventorySlots.Length;  i++)
-        {
-            inventorySlots[i].transform.GetChild(0).GetComponent<Image>().sprite = null;
+        if(itemsList.Count >= maxSpace) {
+
+
+            Debug.Log("No space available");
+
+            return false;
 
 
         }
 
+        itemsList.Add(item);
+
+        if (onItemChangedCallback != null)
+            onItemChangedCallback.Invoke();
 
 
+        return true;
+        
     }
 
 
-
-    public void EquipFromInventory()
+    public void Remove(Item item)
     {
 
+        itemsList.Remove(item);
 
 
+        if (onItemChangedCallback != null)
+            onItemChangedCallback.Invoke();
     }
+
+
 }

@@ -2,64 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Item : ScriptableObject
 {
-    public int id;
     public string itemName;
-
-
-
-    //CATEGORIES CAN BE (WEAPON , ARMOR, CONSUMABLE , KEYITEM )
-    public Item_Category category;
-    
     public Sprite icon;
+    public Category itemCategory;
+    public int Amount;
 
 
-
-
-
-
-    public Dictionary<string, int> stats = new Dictionary<string, int>();
-    public enum Item_Category
+    public enum Category
     {
-
-        Weapon,
-        Ammunition,
-        Armor,
+        Weapon, 
         Consumable,
-        KeyItem
-
-    };
-
-
-
-
-
-    public Item(int id, Item_Category category, string itemName, Dictionary<string, int> stats)
-    {
-
-        this.id = id;
-        this.category = category;
-        this.itemName = itemName;
-        this.icon = Resources.Load<Sprite>("Sprites/Items/" + itemName);
-        this.stats = stats;
-
-        
-
+        Equipment
     }
 
 
-
-    public Item(Item item)
+    
+    public virtual void Use()
     {
 
-        this.id = item.id;
-        this.category = item.category;
+        Debug.Log("Item"+itemName+" is used");
+    }
 
-        this.itemName = item.itemName;
-        this.icon = Resources.Load<Sprite>("Sprites/Items/" + item.itemName);
-        this.stats = item.stats;
+    public virtual void PickUp()
+    {
 
+        Debug.Log("Item " + itemName + "is picked up");
 
 
     }
