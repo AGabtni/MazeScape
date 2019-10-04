@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2709c776b65a9914789e04e33e658007, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
+  slotCategory: 0
   itemName: Shotgun
   icon: {fileID: 21300000, guid: ee78b05316d53cb4eb9da733a1191d39, type: 3}
-  itemCategory: 0
-  ammoAmount: 20
+  Amount: 0
+  weaponCategory: 0
+  damageModifier: 0
+  PickUp_Position: {x: -0.0598, y: -0.0005, z: -0.0324}
+  PickUp_Rotation: {x: -8.397, y: -123.133, z: 82.95}
+  weaponPrefab: {fileID: 400004, guid: 25ef084687daa014b8538f35cf0d5aa6, type: 3}

@@ -128,6 +128,7 @@ MonoBehaviour:
   interactiveAgents:
     serializedVersion: 2
     m_Bits: 256
+  canInteract: 0
   item: {fileID: 0}
 --- !u!1 &8361619002387569260
 GameObject:

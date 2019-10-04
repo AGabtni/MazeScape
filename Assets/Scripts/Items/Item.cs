@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class Item : ScriptableObject
 {
+
+    public Category slotCategory;
     public string itemName;
     public Sprite icon;
-    public Category itemCategory;
     public int Amount;
 
 
@@ -20,18 +21,18 @@ public class Item : ScriptableObject
 
 
     
-    public virtual void Use()
-    {
+    public virtual void Use() { }
 
-        Debug.Log("Item"+itemName+" is used");
-    }
 
-    public virtual void PickUp()
-    {
+    public void RemoveFromInventory() {
 
-        Debug.Log("Item " + itemName + "is picked up");
-
+        Inventory.instance.Remove(this);
 
     }
+
+
+
+
+
 
 }

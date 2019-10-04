@@ -38,14 +38,14 @@ public class InventorySlot : MonoBehaviour
         item = newItem;
 
 
-        if(item.itemCategory == Item.Category.Equipment)
+        if(item.slotCategory == Item.Category.Equipment)
         {
             Amount.gameObject.SetActive(false);
 
         }
         Icon.sprite = item.icon;
         Icon.enabled = true;
-        removeButton.interactable = true;
+        //removeButton.interactable = true;
 
         
     }
@@ -62,7 +62,7 @@ public class InventorySlot : MonoBehaviour
 
         Icon.sprite = null;
         Icon.enabled = false;
-        removeButton.interactable = false;
+        //removeButton.interactable = false;
 
     }
   

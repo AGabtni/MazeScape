@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
+
 
 public class InventoryUI : MonoBehaviour
 {
@@ -26,15 +28,29 @@ public class InventoryUI : MonoBehaviour
         inventoryUI.SetActive(false);
 
 
+        UpdateUI();
     }
 
+
+    public void OnInventoryBtnClicked()
+    {
+        inventoryUI.SetActive(!inventoryUI.activeSelf);
+
+    }
 
 
     private void Update()
     {
-        if (Input.GetButtonDown("Inventory"))
-            inventoryUI.SetActive(!inventoryUI.activeSelf);
 
+
+        //BLOCK TO REMOVE AFTER FINISHING
+        #if UNITY_EDITOR && !UNITY_ANDROID
+            if (Input.GetButtonDown("Inventory"))
+                inventoryUI.SetActive(!inventoryUI.activeSelf);
+
+        #endif
+
+        
 
     }
 
@@ -47,11 +63,13 @@ public class InventoryUI : MonoBehaviour
             {
 
                 slots[i].AddItem(inventory.itemsList[i]);
-            }
+               }
             else
             {
                 //Otherwise 
                 slots[i].ClearSlot();
+
+
 
             }
 

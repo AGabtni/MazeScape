@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Transform target = null;
 
-    public Transform inventoryPanel;
     public Camera playerCamera;
 
 
@@ -41,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
         _charController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
 
-        #if UNITY_ANDROID && !UNITY_EDITOR
+        #if UNITY_ANDROID && UNITY_EDITOR
             variableJoystick = GameObject.Find("Movement Joystick").GetComponent<VariableJoystick>();
 
         #endif
@@ -52,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
 
         
         //Input based on platform
-        #if UNITY_ANDROID && !UNITY_EDITOR
+        #if UNITY_ANDROID && UNITY_EDITOR
 
 
             float horInput = variableJoystick.Horizontal;
