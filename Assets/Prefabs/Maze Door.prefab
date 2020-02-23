@@ -532,6 +532,8 @@ GameObject:
   m_Component:
   - component: {fileID: 400014}
   - component: {fileID: 11400002}
+  - component: {fileID: 267985382}
+  - component: {fileID: 2637967011417731312}
   m_Layer: 13
   m_Name: Maze Door
   m_TagString: Untagged
@@ -574,6 +576,36 @@ MonoBehaviour:
   direction: 0
   closeDoorTime: 5
   hinge: {fileID: 400004}
+--- !u!65 &267985382
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100014}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.9763396, z: 0.04664421}
+  m_Center: {x: 0, y: 1.0106119, z: 0.47368908}
+--- !u!114 &2637967011417731312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f33a8cb87cf29a409a3f10f532f123c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionRadius: 1
+  interactiveAgents:
+    serializedVersion: 2
+    m_Bits: 256
+  canInteract: 0
 --- !u!1 &1939457982532896553
 GameObject:
   m_ObjectHideFlags: 0

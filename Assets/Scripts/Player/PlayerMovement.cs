@@ -9,10 +9,10 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private Transform target = null;
 
-    public Camera playerCamera;
+    private Camera playerCamera;
 
 
-    public float rotSpeed = 15.0f;
+    public float rotSpeed = 5.0f;
     public float moveSpeed = 6.0f;
 
     public float jumpSpeed = 15.0f;
@@ -26,7 +26,6 @@ public class PlayerMovement : MonoBehaviour
     private Animator _animator;
     private MazeCell currentCell;
 
-    private MazeDirection currentDirection;
 
     public bool ikActive = false;
 
@@ -35,46 +34,47 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private Transform lookObj = null;
 
-    public LayerMask groundExcludeMask;
     private CharacterController _charController;
-    private VariableJoystick variableJoystick ;
+    private VariableJoystick variableJoystick;
 
 
 
     void Start()
     {
+
+        playerCamera = target.GetComponent<Camera>();
         _charController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
-        if(rightHandObj != null)
+        if (rightHandObj != null)
         {
 
             EquipmentManager.instance.targetHand = rightHandObj;
-            
+
         }
 
 
-        #if UNITY_ANDROID && UNITY_EDITOR
-            variableJoystick = GameObject.Find("Movement Joystick").GetComponent<VariableJoystick>();
+#if UNITY_ANDROID && UNITY_EDITOR
+        variableJoystick = GameObject.Find("Movement Joystick").GetComponent<VariableJoystick>();
 
-        #endif
+#endif
     }
     void Update()
     {
         Vector3 movement = Vector3.zero;
 
-        
+
         //Input based on platform
-        #if UNITY_ANDROID && UNITY_EDITOR
+#if UNITY_ANDROID && UNITY_EDITOR
 
 
-            float horInput = variableJoystick.Horizontal;
-            float vertInput = variableJoystick.Vertical;
-        #elif UNITY_EDITOR
+        float horInput = variableJoystick.Horizontal;
+        float vertInput = variableJoystick.Vertical;
+#elif UNITY_EDITOR
 
             float horInput = Input.GetAxis("Horizontal");
             float vertInput = Input.GetAxis("Vertical");
         
-        #endif
+#endif
 
 
 
@@ -84,23 +84,32 @@ public class PlayerMovement : MonoBehaviour
             movement.x = horInput * moveSpeed;
             movement.z = vertInput * moveSpeed;
             movement = Vector3.ClampMagnitude(movement, moveSpeed);
-
-            Quaternion tmp = target.rotation;
-            target.eulerAngles = new Vector3(0, target.eulerAngles.y, 0);
-            movement = target.TransformDirection(movement);
-            target.rotation = tmp;
-
-            Quaternion direction = Quaternion.LookRotation(movement);
-            transform.rotation = Quaternion.Lerp(transform.rotation,
+            //move camera to face player direction only when its not aiming
+            if (!target.parent.GetComponent<CameraFollow>().focus)
+            {
+                Quaternion tmp = target.rotation;
+                target.eulerAngles = new Vector3(0, target.eulerAngles.y, 0);
+                movement = target.TransformDirection(movement);
+                target.rotation = tmp;
+                Debug.Log("cam");
+                Quaternion direction = Quaternion.LookRotation(movement);
+                transform.rotation = Quaternion.Lerp(transform.rotation,
                 direction, rotSpeed * Time.deltaTime);
+            }else{
 
-          
+
+                transform.rotation =  Quaternion.LookRotation(movement);
+            }
+
+            
+
+
         }
 
         _animator.SetFloat("Speed", movement.sqrMagnitude);
 
 
-       
+
 
 
         // y movement: possibly jump impulse up, always accel down
@@ -111,7 +120,6 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetButtonDown("Jump"))
             {
                 _vertSpeed = jumpSpeed;
-                GetComponent<PlayerHealth>().RestoreHealth();
                 _animator.SetBool("Jumping", true);
 
             }
@@ -123,15 +131,20 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             _animator.SetBool("Jumping", false);
-            _vertSpeed += gravity *5* Time.deltaTime;
-          
-           
+            _vertSpeed += gravity * 5 * Time.deltaTime;
+
+
         }
         movement.y = _vertSpeed;
 
 
 
+        if (Input.GetButtonDown("Aim"))
+        {
+            target.parent.GetComponent<CameraFollow>().CameraFocus(movement);
+            _animator.SetBool("Aiming", !_animator.GetBool("Aiming"));
 
+        }
 
         movement *= Time.deltaTime;
         _charController.Move(movement);
@@ -144,10 +157,13 @@ public class PlayerMovement : MonoBehaviour
             RaycastHit raycastHit;
             if (Physics.Raycast(raycast, out raycastHit))
             {
-               
+                Debug.Log(raycastHit.transform.tag);
+
                 if (raycastHit.transform.GetComponent<Interactable>())
                 {
                     Interactable interactable = raycastHit.transform.GetComponent<Interactable>();
+                    Debug.Log("Found interactable");
+
                     if (interactable.canInteract)
                     {
                         interactable.Interact();
@@ -201,12 +217,12 @@ public class PlayerMovement : MonoBehaviour
                 _animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
                 _animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
 
-               
+
                 _animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandObj.position);
                 _animator.SetIKRotation(AvatarIKGoal.RightHand, rightHandObj.rotation);
-                
+
             }
-            
+
 
         }
 

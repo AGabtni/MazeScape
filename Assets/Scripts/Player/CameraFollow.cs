@@ -6,14 +6,14 @@ public class CameraFollow : MonoBehaviour {
 
     private VariableJoystick variableJoystick;
 	public float CameraMoveSpeed = 120.0f;
-	public GameObject CameraFollowObj;
+	public GameObject followPoint;
+	public GameObject aimPoint;
 	Vector3 FollowPOS;
 	private const float clampAngleX = 80.0f;
     private const float clampAngleMinY = 0f;
     private const float clampAngleMaxY = 80.0f;
 
     public float inputSensitivity = 150.0f;
-	public GameObject CameraObj;
 	public GameObject PlayerObj;
 	
 	public float mouseX;
@@ -22,6 +22,7 @@ public class CameraFollow : MonoBehaviour {
 	private float rotY = 0.0f;
 	private float rotX = 0.0f;
 
+	public bool focus;
 
 
 	// Use this for initialization
@@ -35,7 +36,8 @@ public class CameraFollow : MonoBehaviour {
 
         Vector3 rot = transform.localRotation.eulerAngles;
 		rotY = rot.y;
-		rotX = rot.x;
+		rotX = rot.x;	
+		focus =false;
 		
 	}
 	
@@ -51,22 +53,13 @@ public class CameraFollow : MonoBehaviour {
                 mouseY = variableJoystick.Vertical;
             #elif !UNITY_EDITOR
 
-                mouseX = Input.GetAxis ("Mouse X");
+                mzouseX = Input.GetAxis ("Mouse X");
                 mouseY = Input.GetAxis ("Mouse Y");
 
             #endif
+	
 
 
-
-
-        rotY += mouseX * inputSensitivity * Time.deltaTime;
-		rotX += mouseY * inputSensitivity * Time.deltaTime;
-
-		rotX = Mathf.Clamp (rotX, -clampAngleX, clampAngleX);
-        rotX = Mathf.Clamp(rotX, clampAngleMinY, clampAngleMaxY);
-
-        Quaternion localRotation = Quaternion.Euler (rotX, rotY, 0.0f);
-		transform.rotation = localRotation;
 
     }
 
@@ -74,12 +67,46 @@ public class CameraFollow : MonoBehaviour {
 		CameraUpdater ();
 	}
 
+	public void CameraFocus(Vector3 movement){
+
+		focus = !focus;
+	}
 	void CameraUpdater() {
 		// set the target object to follow
-		Transform target = CameraFollowObj.transform;
+		Transform target;
+		if(!focus){
+			target = followPoint.transform;
+			
+        	rotY += mouseX * inputSensitivity * Time.deltaTime;
+			rotX += mouseY * inputSensitivity * Time.deltaTime;
 
+			rotX = Mathf.Clamp (rotX, -clampAngleX, clampAngleX);
+        	rotX = Mathf.Clamp(rotX, clampAngleMinY, clampAngleMaxY);
+			Quaternion localRotation = Quaternion.Euler (rotX, rotY, 0.0f);
+			transform.rotation = localRotation;
+
+		}
+		else{
+			
+			target = aimPoint.transform;	
+					//Camera rotation : 
+			
+			Vector3 newDirection = Vector3.RotateTowards(transform.position, target.parent.forward, Time.deltaTime, 0.0f);
+
+			//transform.LookAt(newDirection);
+			transform.rotation = target.rotation;
+			transform.LookAt(target);
+		}
 		//move towards the game object that is the target
+		
 		float step = CameraMoveSpeed * Time.deltaTime;
 		transform.position = Vector3.MoveTowards (transform.position, target.position, step);
+
+
+		
+
+	
+
+
 	}
 }

@@ -18,6 +18,6 @@ MonoBehaviour:
   Amount: 0
   weaponCategory: 0
   damageModifier: 0
-  PickUp_Position: {x: -0.0598, y: -0.0005, z: -0.0324}
-  PickUp_Rotation: {x: -8.397, y: -123.133, z: 82.95}
+  PickUp_Position: {x: -0.058, y: -0.011, z: -0.001}
+  PickUp_Rotation: {x: -0.494, y: -79.816, z: 93.96}
   weaponPrefab: {fileID: 400004, guid: 25ef084687daa014b8538f35cf0d5aa6, type: 3}
