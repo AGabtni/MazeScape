@@ -26,11 +26,11 @@ public class CameraFollow : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        #if UNITY_ANDROID && !UNITY_EDITOR
+        #if UNITY_ANDROID && UNITY_EDITOR
                 variableJoystick = GameObject.Find("Camera Joystick").GetComponent<VariableJoystick>();
         #elif UNITY_EDITOR
                 //Cursor.lockState = CursorLockMode.Locked;
-		        //Cursor.visible = false;
+                //Cursor.visible = false;
         #endif
 
         Vector3 rot = transform.localRotation.eulerAngles;
@@ -44,12 +44,12 @@ public class CameraFollow : MonoBehaviour {
 
   
 
-            #if UNITY_ANDROID && !UNITY_EDITOR
+            #if UNITY_ANDROID && UNITY_EDITOR
 
         
                 mouseX = variableJoystick.Horizontal;
                 mouseY = variableJoystick.Vertical;
-            #elif UNITY_EDITOR
+            #elif !UNITY_EDITOR
 
                 mouseX = Input.GetAxis ("Mouse X");
                 mouseY = Input.GetAxis ("Mouse Y");

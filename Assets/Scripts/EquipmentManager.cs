@@ -7,9 +7,11 @@ public class EquipmentManager : MonoBehaviour
     #region Singleton
 
     public static EquipmentManager instance;
-    public MeshRenderer targetMesh;
-    public GameObject targetHand;
+    //public MeshRenderer targetMesh;
+    public Transform targetHand;
 
+    Weapon currentWeapon;
+    
     void Awake()
     {
 
@@ -21,9 +23,8 @@ public class EquipmentManager : MonoBehaviour
 
 
 
-    Weapon currentWeapon;
 
-    // Callback for when an item is equipped/unequipped
+    // Callback for when armor/clothes/style items are equipped/unequipped
     //public delegate void OnEquipmentChanged(Equipment newItem, Equipment oldItem);
     //public OnEquipmentChanged onEquipmentChanged;
 
@@ -31,6 +32,7 @@ public class EquipmentManager : MonoBehaviour
     // Callback for when an item is equipped/unequipped
     public delegate void OnWeaponChanged(Weapon newWeapon, Weapon oldWeapon);
     public OnWeaponChanged onWeaponChanged;
+    public Transform weaponInstance;
 
     Inventory inventory;	// Reference to our inventory
 
@@ -53,9 +55,9 @@ public class EquipmentManager : MonoBehaviour
 
 
         currentWeapon = newWeapon;
-        Transform weapon = Instantiate(currentWeapon.weaponPrefab, targetHand.transform) as Transform;
-        weapon.localPosition = currentWeapon.PickUp_Position;
-        weapon.localEulerAngles = currentWeapon.PickUp_Rotation;
+        weaponInstance = Instantiate(currentWeapon.weaponPrefab, targetHand) as Transform;
+        weaponInstance.localPosition = currentWeapon.PickUp_Position;
+        weaponInstance.localEulerAngles = currentWeapon.PickUp_Rotation;
     }
 
     public Weapon UnequipWeapon()
@@ -69,13 +71,20 @@ public class EquipmentManager : MonoBehaviour
 
 
             currentWeapon = null;
-
-            if(onWeaponChanged != null)
+            if(weaponInstance != null)
             {
-                onWeaponChanged.Invoke(null, oldWeapon);
-            }
-    
+                Destroy(weaponInstance.gameObject);
 
+            }
+
+            if (onWeaponChanged != null)
+            {
+
+                onWeaponChanged.Invoke(null, oldWeapon);
+                
+            }
+            
+            
 
 
 

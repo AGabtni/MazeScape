@@ -4,6 +4,9 @@ using System.Collections;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
+
+
+
     [SerializeField] private Transform target = null;
 
     public Camera playerCamera;
@@ -26,7 +29,10 @@ public class PlayerMovement : MonoBehaviour
     private MazeDirection currentDirection;
 
     public bool ikActive = false;
+
+
     [SerializeField] private Transform rightHandObj = null;
+
     [SerializeField] private Transform lookObj = null;
 
     public LayerMask groundExcludeMask;
@@ -39,6 +45,13 @@ public class PlayerMovement : MonoBehaviour
     {
         _charController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
+        if(rightHandObj != null)
+        {
+
+            EquipmentManager.instance.targetHand = rightHandObj;
+            
+        }
+
 
         #if UNITY_ANDROID && UNITY_EDITOR
             variableJoystick = GameObject.Find("Movement Joystick").GetComponent<VariableJoystick>();
