@@ -142,7 +142,11 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Aim"))
         {
             target.parent.GetComponent<CameraFollow>().CameraFocus(movement);
+            
             _animator.SetBool("Aiming", !_animator.GetBool("Aiming"));
+                        toggleAnimationLayers(1);
+
+            toggleAnimationLayers(0);
 
         }
 
@@ -193,6 +197,19 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+    //
+    private void toggleAnimationLayers(int index ){
+
+        if(_animator.GetLayerWeight(index) == 1 ){
+            _animator.SetLayerWeight(index, 0 );
+            Debug.Log(_animator.GetLayerIndex("Normal mode"));
+        }
+
+        else if(_animator.GetLayerWeight(index) == 0 ){
+            _animator.SetLayerWeight(index, 1 );
+        }
+        
+    }
 
     //IK animation : 
 
