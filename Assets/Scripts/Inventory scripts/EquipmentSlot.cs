@@ -1,39 +1,28 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class InventorySlot : MonoBehaviour
+public class EquipmentSlot : MonoBehaviour
 {
 
     public Item item;
     public Button removeButton;
 
-
     private Text Amount;
     private Image Icon;
 
-
-
+    public Category slot_category;
     public void Awake()
     {
 
-        Amount = transform.Find("Ammo").GetComponent<Text>();
+        Amount = transform.Find("Amount").GetComponent<Text>();
         Icon = transform.Find("Icon").GetComponent<Image>();
 
 
     }
 
-    public void OnSlotClicked()
-    {
-        if (item != null)
-        {
 
-            item.Equip();
-        }
-        
-    }
-
-    public void AddItem(Item newItem)
+      public void AddItem(Item newItem)
     {
         item = newItem;
 
@@ -65,5 +54,14 @@ public class InventorySlot : MonoBehaviour
         //removeButton.interactable = false;
 
     }
-  
+
+
+    public void OnSlotClicked(){
+
+        if(item!=null){
+
+            item.UnEquip();
+        }
+
+    }
 }

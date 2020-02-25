@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+    public enum Category
+    {
+        Weapon, 
+        Consumable,
+        Equipment
+    }
+
 public class Item : ScriptableObject
 {
 
@@ -12,14 +19,14 @@ public class Item : ScriptableObject
     public int Amount;
 
 
-    public enum Category
-    {
-        Weapon, 
-        Consumable,
-        Equipment
+
+    public virtual void Equip(){
+        
     }
 
-
+    public virtual void UnEquip(){
+        
+    }
     
     public virtual void Use() { }
 

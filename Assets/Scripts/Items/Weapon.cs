@@ -10,9 +10,9 @@ public class Weapon : Item
 
     public enum WeaponCategory
     {
-        Weapon,
-        Consumable,
-        Equipment
+        H2H,
+        range,
+        area
     }
 
     //Grenade, hand-to-hand, range, etc .... 
@@ -28,10 +28,10 @@ public class Weapon : Item
     public Transform weaponPrefab;
 
 
-    public override void Use()
+    public override void Equip()
     {
 
-        base.Use();
+        base.Equip();
 
 
         EquipmentManager.instance.EquipWeapon(this);
@@ -39,7 +39,20 @@ public class Weapon : Item
 
 
     }
-    
+
+    public override void UnEquip()
+    {
+        base.UnEquip();
+        EquipmentManager.instance.UnequipWeapon();
+
+    }
+    public override void Use(){
+        base.Use();
+
+
+
+    }
+
 
     
 }

@@ -34,12 +34,14 @@ public class EquipmentManager : MonoBehaviour
     public OnWeaponChanged onWeaponChanged;
     public Transform weaponInstance;
 
-    Inventory inventory;	// Reference to our inventory
+    public EquipmentSlot weaponSlot;
 
+    Inventory inventory;	// Reference to our inventory
 
     private void Start()
     {
         inventory = Inventory.instance;
+        weaponSlot.ClearSlot();
         
     }
 
@@ -53,11 +55,14 @@ public class EquipmentManager : MonoBehaviour
             onWeaponChanged.Invoke(newWeapon, oldWeapon);
         }
 
-
+        //Spawn weapong
         currentWeapon = newWeapon;
         weaponInstance = Instantiate(currentWeapon.weaponPrefab, targetHand) as Transform;
         weaponInstance.localPosition = currentWeapon.PickUp_Position;
         weaponInstance.localEulerAngles = currentWeapon.PickUp_Rotation;
+
+        //Add it to equipment slot
+        weaponSlot.AddItem(currentWeapon);    
     }
 
     public Weapon UnequipWeapon()
@@ -68,7 +73,7 @@ public class EquipmentManager : MonoBehaviour
 
             oldWeapon = currentWeapon;
             inventory.Add(oldWeapon);
-
+            weaponSlot.ClearSlot();   
 
             currentWeapon = null;
             if(weaponInstance != null)
@@ -97,6 +102,3 @@ public class EquipmentManager : MonoBehaviour
 
 
 }
-
-public enum EquipmentSlot { Head, Chest, Legs, Weapon, Shield, Feet }
-
