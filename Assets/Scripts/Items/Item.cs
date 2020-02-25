@@ -7,13 +7,14 @@ using UnityEngine;
     {
         Weapon, 
         Consumable,
-        Equipment
+        Equipment,
+        Ammo
     }
 
 public class Item : ScriptableObject
 {
 
-    public Category slotCategory;
+    public Category category;
     public string itemName;
     public Sprite icon;
     public int Amount;
@@ -28,7 +29,10 @@ public class Item : ScriptableObject
         
     }
     
-    public virtual void Use() { }
+    public virtual void Use() {
+        
+
+    }
 
 
     public void RemoveFromInventory() {

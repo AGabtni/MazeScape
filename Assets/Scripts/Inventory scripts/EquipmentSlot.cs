@@ -3,7 +3,11 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class EquipmentSlot : MonoBehaviour
-{
+{   
+
+    //Callback for using item
+    public delegate void OnItemUsed();
+    public OnItemUsed onItemUsedCallback;
 
     public Item item;
     public Button removeButton;
@@ -14,11 +18,11 @@ public class EquipmentSlot : MonoBehaviour
     public Category slot_category;
     public void Awake()
     {
+        if(slot_category != Category.Equipment)
+            Amount = transform.Find("Amount").GetComponent<Text>();
 
-        Amount = transform.Find("Amount").GetComponent<Text>();
         Icon = transform.Find("Icon").GetComponent<Image>();
-
-
+        
     }
 
 
@@ -26,12 +30,10 @@ public class EquipmentSlot : MonoBehaviour
     {
         item = newItem;
 
-
-        if(item.slotCategory == Category.Equipment)
-        {
-            Amount.gameObject.SetActive(false);
-
-        }
+        if(slot_category != Category.Equipment)
+            Amount.gameObject.SetActive(true);
+            
+        Amount.text = ""+newItem.Amount;
         Icon.sprite = item.icon;
         Icon.enabled = true;
         //removeButton.interactable = true;
@@ -60,8 +62,10 @@ public class EquipmentSlot : MonoBehaviour
 
         if(item!=null){
 
-            item.UnEquip();
+            item.Use();
+            Amount.text = ""+item.Amount;
+
         }
 
-    }
+    }   
 }

@@ -12,6 +12,10 @@ public class EquipmentManager : MonoBehaviour
 
     Weapon currentWeapon;
     
+
+
+
+
     void Awake()
     {
 

@@ -25,9 +25,9 @@ public class InventorySlot : MonoBehaviour
 
     public void OnSlotClicked()
     {
-        if (item != null)
+        if (item != null )
         {
-
+            
             item.Equip();
         }
         
@@ -37,14 +37,22 @@ public class InventorySlot : MonoBehaviour
     {
         item = newItem;
 
+        
 
-        if(item.slotCategory == Category.Equipment)
-        {
-            Amount.gameObject.SetActive(false);
-
-        }
         Icon.sprite = item.icon;
         Icon.enabled = true;
+        Amount.text = ""+item.Amount ;
+        Amount.gameObject.SetActive(true);
+        if(item.category == Category.Equipment)
+        {
+            Amount.gameObject.SetActive(false);
+            return;
+
+        }
+        
+       
+       
+        
         //removeButton.interactable = true;
 
         

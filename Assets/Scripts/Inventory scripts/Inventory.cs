@@ -34,11 +34,12 @@ public class Inventory : MonoBehaviour
 
     public List<Item> itemsList = new List<Item>();
 
-    
+    Dictionary<Ammo,int> ammunition = new Dictionary<Ammo, int>();
+
     public bool Add(Item item)
     {
-
-        if(itemsList.Count >= maxSpace) {
+        
+        if(item.category!= Category.Ammo && itemsList.Count >= maxSpace) {
 
 
             Debug.Log("No space available");
@@ -48,7 +49,24 @@ public class Inventory : MonoBehaviour
 
         }
 
-        itemsList.Add(item);
+        if(item.category == Category.Ammo){
+            bool added = false;
+            foreach(var pair in ammunition){
+                if(pair.Key.Equals(item))
+                    ammunition[pair.Key] += item.Amount;
+                    added = true;
+                    break;
+                
+                
+
+
+            }
+            if(!added)
+                ammunition.Add((Ammo)item, item.Amount);
+            
+        }
+        else
+            itemsList.Add(item);
 
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke();

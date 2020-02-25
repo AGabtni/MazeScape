@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2709c776b65a9914789e04e33e658007, type: 3}
   m_Name: MachineGun
   m_EditorClassIdentifier: 
-  slotCategory: 0
+  category: 0
   itemName: MachineGun
   icon: {fileID: 21300000, guid: 4fb17dea69ab4fe4a8ec58590f0922d5, type: 3}
-  Amount: 0
-  weaponCategory: 0
+  Amount: 20
   damageModifier: 0
   PickUp_Position: {x: 0, y: 0, z: 0}
   PickUp_Rotation: {x: 0, y: 0, z: 0}
   weaponPrefab: {fileID: 5547645470172325177, guid: 10255176aed2071489e9d078237d04b7,
     type: 3}
+  shots: 0
+  maxShots: 0

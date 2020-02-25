@@ -63,7 +63,8 @@ public class InventoryUI : MonoBehaviour
             {
 
                 slots[i].AddItem(inventory.itemsList[i]);
-               }
+                
+            }
             else
             {
                 //Otherwise 
