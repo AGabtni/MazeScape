@@ -1,7 +1,8 @@
-# MazeScape-2.0
+# MazeScape
 
 
 3d platformer made with the Unity Game Engine (w/ C# scripts) .
+Whiteboxing character mechanics and interaction for now . 
 
 ## Development notes
 
