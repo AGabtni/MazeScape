@@ -4,9 +4,10 @@
 3d platformer made with the Unity Game Engine (w/ C# scripts) .
 
 ## Development notes
-SWhat is implemented so far : 
 
-  - Randomly generated Maze
+What is implemented so far : 
+
+  - Randomly generated Maze - Growing tree algorithm
   - Navigation Agents (Behaviour needs change when weapon system is complete)
   - Inventory System 
   - Equipment Manager 
