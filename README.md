@@ -3,6 +3,7 @@
 
 3d platformer made with the Unity Game Engine (w/ C# scripts) .
 
+##Development notes
 Implemented so far : 
 
   - Main scene 
