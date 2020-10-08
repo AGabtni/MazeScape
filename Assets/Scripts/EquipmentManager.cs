@@ -22,6 +22,7 @@ public class EquipmentManager : MonoBehaviour
         instance = this;
        
     }
+
     #endregion
 
 
@@ -36,6 +37,9 @@ public class EquipmentManager : MonoBehaviour
     // Callback for when an item is equipped/unequipped
     public delegate void OnWeaponChanged(Weapon newWeapon, Weapon oldWeapon);
     public OnWeaponChanged onWeaponChanged;
+
+
+
     public Transform weaponInstance;
 
     public EquipmentSlot weaponSlot;
@@ -59,14 +63,21 @@ public class EquipmentManager : MonoBehaviour
             onWeaponChanged.Invoke(newWeapon, oldWeapon);
         }
 
-        //Spawn weapong
+        //Spawn weapon
         currentWeapon = newWeapon;
-        weaponInstance = Instantiate(currentWeapon.weaponPrefab, targetHand) as Transform;
+        weaponInstance = Instantiate(currentWeapon.itemPrefab, targetHand) as Transform;
+        GameObject.Destroy(weaponInstance.GetComponent<ItemPickup>());
+        weaponInstance.GetComponent<WeaponController>().enabled = true;
         weaponInstance.localPosition = currentWeapon.PickUp_Position;
         weaponInstance.localEulerAngles = currentWeapon.PickUp_Rotation;
 
         //Add it to equipment slot
-        weaponSlot.AddItem(currentWeapon);    
+        weaponSlot.AddItem(currentWeapon);  
+
+
+        
+            if(weaponSlot.onItemUsedCallback != null)
+                weaponSlot.onItemUsedCallback.Invoke();  
     }
 
     public Weapon UnequipWeapon()
@@ -82,6 +93,7 @@ public class EquipmentManager : MonoBehaviour
             currentWeapon = null;
             if(weaponInstance != null)
             {
+                Destroy(weaponInstance.GetComponent<WeaponController>());
                 Destroy(weaponInstance.gameObject);
 
             }
@@ -92,6 +104,7 @@ public class EquipmentManager : MonoBehaviour
                 onWeaponChanged.Invoke(null, oldWeapon);
                 
             }
+
             
             
 
@@ -104,5 +117,9 @@ public class EquipmentManager : MonoBehaviour
 
     }
 
+    public void Update(){
+
+        
+    }
 
 }

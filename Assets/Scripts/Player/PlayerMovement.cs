@@ -64,12 +64,12 @@ public class PlayerMovement : MonoBehaviour
 
 
         //Input based on platform
-#if UNITY_ANDROID && UNITY_EDITOR
+#if UNITY_ANDROID && !UNITY_EDITOR
 
 
         float horInput = variableJoystick.Horizontal;
         float vertInput = variableJoystick.Vertical;
-#elif UNITY_EDITOR
+#else 
 
             float horInput = Input.GetAxis("Horizontal");
             float vertInput = Input.GetAxis("Vertical");

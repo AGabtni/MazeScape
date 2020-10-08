@@ -14,10 +14,8 @@ public class Weapon : Item
     public Vector3 PickUp_Position;
     public Vector3 PickUp_Rotation;
 
-    public Transform weaponPrefab;
 
-    public int shots ; 
-    public int maxShots;
+
 
 
 
@@ -44,7 +42,7 @@ public class Weapon : Item
 
         base.Use();
 
-           
+
 
 
 

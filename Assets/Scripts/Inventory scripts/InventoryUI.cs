@@ -14,7 +14,7 @@ public class InventoryUI : MonoBehaviour
 
 
     InventorySlot[] slots;
-
+    
     private void Start()
     {
         inventory = Inventory.instance;
@@ -69,11 +69,8 @@ public class InventoryUI : MonoBehaviour
             {
                 //Otherwise 
                 slots[i].ClearSlot();
-
-
-
             }
-
+            
         }
     }
 

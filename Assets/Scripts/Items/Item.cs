@@ -17,9 +17,10 @@ public class Item : ScriptableObject
     public Category category;
     public string itemName;
     public Sprite icon;
-    public int Amount;
+    public int amount = 0 ;
+    public int maxAmount;
 
-
+    public Transform itemPrefab ;
 
     public virtual void Equip(){
         

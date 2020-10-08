@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        if(instance != null)
+        if (instance != null)
         {
 
             Debug.LogWarning("There is more than one inventory instance ");
@@ -34,36 +34,49 @@ public class Inventory : MonoBehaviour
 
     public List<Item> itemsList = new List<Item>();
 
-    Dictionary<Ammo,int> ammunition = new Dictionary<Ammo, int>();
+    public Dictionary<Ammo, int> ammunition = new Dictionary<Ammo, int>();
 
     public bool Add(Item item)
     {
-        
-        if(item.category!= Category.Ammo && itemsList.Count >= maxSpace) {
 
+        if (item.category != Category.Ammo && itemsList.Count >= maxSpace)
+        {
 
             Debug.Log("No space available");
-
             return false;
-
 
         }
 
-        if(item.category == Category.Ammo){
-            bool added = false;
-            foreach(var pair in ammunition){
-                if(pair.Key.Equals(item))
-                    ammunition[pair.Key] += item.Amount;
-                    added = true;
+        if (item.category == Category.Ammo)
+        {
+            KeyValuePair<Ammo,int> foundAmmo ; 
+            foreach (var pair in ammunition)
+            {
+                if (pair.Key.itemName.Equals(item.itemName)){
+                    foundAmmo = pair;
                     break;
+                }
                 
-                
-
-
             }
-            if(!added)
-                ammunition.Add((Ammo)item, item.Amount);
+            if (foundAmmo.Key != null){
+                ammunition[foundAmmo.Key] += item.amount;
+            }
+            else
+                ammunition.Add((Ammo)item, item.amount);
+                
+
+            //If weapon is equipped and needs ammo : 
+            if(EquipmentManager.instance.weaponInstance != null)
+                EquipmentManager.instance.weaponInstance.GetComponent<WeaponController>().GetAmmo();
             
+        }
+        else if (item.category == Category.Weapon)
+        {
+
+
+            itemsList.Add(item);
+
+
         }
         else
             itemsList.Add(item);
@@ -73,7 +86,7 @@ public class Inventory : MonoBehaviour
 
 
         return true;
-        
+
     }
 
 
@@ -87,5 +100,9 @@ public class Inventory : MonoBehaviour
             onItemChangedCallback.Invoke();
     }
 
+    public void Update()
+    {
+
+    }
 
 }

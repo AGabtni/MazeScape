@@ -16,7 +16,7 @@ public class ItemDropHandler : MonoBehaviour, IDropHandler
         if(!RectTransformUtility.RectangleContainsScreenPoint(invPanel,Input.mousePosition)){
 
             eventData.selectedObject.GetComponent<EquipmentSlot>().item.UnEquip();
-
+    
 
         }
     }

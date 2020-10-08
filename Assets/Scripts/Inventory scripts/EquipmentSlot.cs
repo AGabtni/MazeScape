@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class EquipmentSlot : MonoBehaviour
-{   
+{
 
     //Callback for using item
     public delegate void OnItemUsed();
@@ -12,35 +12,58 @@ public class EquipmentSlot : MonoBehaviour
     public Item item;
     public Button removeButton;
 
-    private Text Amount;
+    public Text Amount;
     private Image Icon;
 
     public Category slot_category;
-    public void Awake()
+    public void Start()
     {
-        if(slot_category != Category.Equipment)
+        if (slot_category != Category.Equipment)
             Amount = transform.Find("Amount").GetComponent<Text>();
 
         Icon = transform.Find("Icon").GetComponent<Image>();
-        
+
+        onItemUsedCallback += UpdateSlot;
+
+        UpdateSlot();
     }
 
 
-      public void AddItem(Item newItem)
+    public void AddItem(Item newItem)
     {
         item = newItem;
+        switch (newItem.category)
+        {
 
-        if(slot_category != Category.Equipment)
-            Amount.gameObject.SetActive(true);
-            
-        Amount.text = ""+newItem.Amount;
+            case (Category.Equipment):
+                AddEquipment();
+                break;
+
+            case (Category.Weapon):
+                AddWeapon();
+                break;
+
+
+
+        }
+        //removeButton.interactable = true;
         Icon.sprite = item.icon;
         Icon.enabled = true;
-        //removeButton.interactable = true;
+        if (onItemUsedCallback != null)
+            onItemUsedCallback.Invoke();
 
-        
     }
 
+    public void AddWeapon()
+    {
+
+        Amount.gameObject.SetActive(true);
+
+    }
+    public void AddEquipment()
+    {
+        Amount.gameObject.SetActive(false);
+    }
 
 
     public void ClearSlot()
@@ -57,15 +80,25 @@ public class EquipmentSlot : MonoBehaviour
 
     }
 
+    void UpdateSlot()
+    {
 
-    public void OnSlotClicked(){
+        if(EquipmentManager.instance.weaponInstance != null)
+            Amount.text = "" + EquipmentManager.instance.weaponInstance.GetComponent<WeaponController>().currentAmmo;
 
-        if(item!=null){
+    }
+    public void OnSlotClicked()
+    {
+
+        if (item != null)
+        {
 
             item.Use();
-            Amount.text = ""+item.Amount;
+            EquipmentManager.instance.weaponInstance.GetComponent<WeaponController>().Shoot();
+            if (onItemUsedCallback != null)
+                onItemUsedCallback.Invoke();
 
         }
 
-    }   
+    }
 }

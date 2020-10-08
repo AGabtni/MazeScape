@@ -46,14 +46,14 @@ public class CameraFollow : MonoBehaviour {
 
   
 
-            #if UNITY_ANDROID && UNITY_EDITOR
+            #if UNITY_ANDROID && !UNITY_EDITOR
 
         
                 mouseX = variableJoystick.Horizontal;
                 mouseY = variableJoystick.Vertical;
-            #elif !UNITY_EDITOR
+            #else 
 
-                mzouseX = Input.GetAxis ("Mouse X");
+                mouseX = Input.GetAxis ("Mouse X");
                 mouseY = Input.GetAxis ("Mouse Y");
 
             #endif

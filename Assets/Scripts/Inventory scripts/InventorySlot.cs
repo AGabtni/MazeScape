@@ -9,7 +9,6 @@ public class InventorySlot : MonoBehaviour
     public Button removeButton;
 
 
-    private Text Amount;
     private Image Icon;
 
 
@@ -17,7 +16,6 @@ public class InventorySlot : MonoBehaviour
     public void Awake()
     {
 
-        Amount = transform.Find("Ammo").GetComponent<Text>();
         Icon = transform.Find("Icon").GetComponent<Image>();
 
 
@@ -25,11 +23,17 @@ public class InventorySlot : MonoBehaviour
 
     public void OnSlotClicked()
     {
+
+
+
         if (item != null )
         {
-            
+            if(EquipmentManager.instance.weaponInstance != null)
+                EquipmentManager.instance.UnequipWeapon();
             item.Equip();
         }
+
+
         
     }
 
@@ -41,14 +45,7 @@ public class InventorySlot : MonoBehaviour
 
         Icon.sprite = item.icon;
         Icon.enabled = true;
-        Amount.text = ""+item.Amount ;
-        Amount.gameObject.SetActive(true);
-        if(item.category == Category.Equipment)
-        {
-            Amount.gameObject.SetActive(false);
-            return;
-
-        }
+        
         
        
        
@@ -65,9 +62,6 @@ public class InventorySlot : MonoBehaviour
 
 
         item = null;
-
-        Amount.gameObject.SetActive(false);
-
         Icon.sprite = null;
         Icon.enabled = false;
         //removeButton.interactable = false;
