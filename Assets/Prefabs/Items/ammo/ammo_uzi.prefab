@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 310601253686525480}
   - component: {fileID: 310601253689425422}
   - component: {fileID: 310601253688425678}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh2_Group3_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   m_Component:
   - component: {fileID: 310601253686525484}
   - component: {fileID: -3126994298983748131}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: ammo_uzi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,6 +127,7 @@ MonoBehaviour:
   interactiveAgents:
     serializedVersion: 2
     m_Bits: 256
+  canInteract: 0
   item: {fileID: 0}
 --- !u!1 &310601253686157838
 GameObject:
@@ -139,7 +140,7 @@ GameObject:
   - component: {fileID: 310601253686525486}
   - component: {fileID: 310601253689425420}
   - component: {fileID: 310601253688425676}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh1_Group2_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

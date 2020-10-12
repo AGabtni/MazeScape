@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 975204941890944500}
   - component: {fileID: 2119738883780049976}
   - component: {fileID: 1205545690077860009}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: uziSilencer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 975204941890944504}
   - component: {fileID: 975204941891714520}
   - component: {fileID: 975204941892714264}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh3_Group4_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 975204941890944506}
   - component: {fileID: 975204941891714522}
   - component: {fileID: 975204941892714266}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh4_Group5_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 975204941890944508}
   - component: {fileID: 975204941891714524}
   - component: {fileID: 975204941892714268}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh1_Group2_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 975204941890944510}
   - component: {fileID: 975204941891714526}
   - component: {fileID: 975204941892714270}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh2_Group3_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -2,19 +2,22 @@
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName ="new Gun", menuName ="Items/Weapon")]
+[CreateAssetMenu(fileName = "new Gun", menuName = "Items/Weapon")]
 
 public class Weapon : Item
 {
 
 
 
-
     public int damageModifier;
     public Vector3 PickUp_Position;
     public Vector3 PickUp_Rotation;
-
-
+    private Transform _FireWeapon;
+    public Transform FireWeapon
+    {
+        get { return _FireWeapon;}
+        set {_FireWeapon = value;}
+    }
 
 
 
@@ -37,11 +40,12 @@ public class Weapon : Item
         EquipmentManager.instance.UnequipWeapon();
 
     }
-    public override void Use(){
+    public override void Use()
+    {
 
 
         base.Use();
-
+        EquipmentManager.instance.TriggerWeapon();
 
 
 
@@ -49,5 +53,5 @@ public class Weapon : Item
     }
 
 
-    
+
 }

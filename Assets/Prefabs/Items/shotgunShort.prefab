@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5913835133110499937}
   - component: {fileID: -1003963619907694992}
   - component: {fileID: -6788436300253806655}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: shotgunShort
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 5913835133110499941}
   - component: {fileID: 5913835133113399877}
   - component: {fileID: 5913835133112400005}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh1_Group2_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 5913835133110499943}
   - component: {fileID: 5913835133113399879}
   - component: {fileID: 5913835133112400007}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh2_Group3_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -15,7 +15,11 @@ public class DeviceOperator : Interactable
         Debug.Log("Interact with door");
         if (!transform.GetComponent<MazeDoor>().isDoorOpen)
         {
-            transform.GetComponent<MazeDoor>().OnPlayerEntered();
+            StartCoroutine(transform.GetComponent<MazeDoor>().OpenDoor());
+        }
+        else
+        {
+
         }
 
 

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1215539183870365975}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,8 +42,8 @@ GameObject:
   - component: {fileID: -3752021697087271185}
   - component: {fileID: 161647027}
   - component: {fileID: 161647028}
-  - component: {fileID: -2783845156572775811}
-  m_Layer: 0
+  - component: {fileID: 7005159919511614350}
+  m_Layer: 12
   m_Name: machinegun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,24 +114,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-2783845156572775811
+--- !u!114 &7005159919511614350
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5547645470172166425}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54c75e66c35aa8a4bbf09846a1d38ea5, type: 3}
+  m_Script: {fileID: 11500000, guid: f046ed562afad1040aaa11c3158b72e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: c5f9a0494378a3344a93407aa920352f, type: 2}
-  maxAmmo: 0
-  currentAmmo: 0
+  bulletSpeed: 10
+  fireRate: 0.25
   muzzleTransform: {fileID: 1215539183870365975}
   bulletPrefab: {fileID: 4686699337945643528, guid: 6bb4458d68c23ed4fa9faf0c5794ee5a,
     type: 3}
+  currentAmmo: 0
 --- !u!1 &5547645470172166427
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,7 +144,7 @@ GameObject:
   - component: {fileID: 5547645470172325179}
   - component: {fileID: 5547645470171030809}
   - component: {fileID: 5547645470169901017}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh1_Group2_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +222,7 @@ GameObject:
   - component: {fileID: 5547645470172325181}
   - component: {fileID: 5547645470171030811}
   - component: {fileID: 5547645470169901019}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh2_Group3_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

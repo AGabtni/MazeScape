@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1953750144612173232}
   - component: {fileID: 3817030303990061695}
   - component: {fileID: -4583068214329386561}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: sniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 1953750144612173240}
   - component: {fileID: 1953750144609306008}
   - component: {fileID: 1953750144610404184}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh1_Group2_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 1953750144612173242}
   - component: {fileID: 1953750144609306010}
   - component: {fileID: 1953750144610404186}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh2_Group3_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 1953750144612173244}
   - component: {fileID: 1953750144609306012}
   - component: {fileID: 1953750144610404188}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh3_Group4_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 1953750144612173246}
   - component: {fileID: 1953750144609306014}
   - component: {fileID: 1953750144610404190}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh4_Group5_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

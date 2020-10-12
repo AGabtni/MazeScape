@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2723739794574158370}
   - component: {fileID: 2723739794571291140}
   - component: {fileID: 2723739794572388548}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh2_Group3_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 2723739794574158372}
   - component: {fileID: 2723739794571291142}
   - component: {fileID: 2723739794572388550}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh1_Group2_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2723739794574158374}
   - component: {fileID: -4432468082481954440}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: ammo_sniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,4 +205,5 @@ MonoBehaviour:
   interactiveAgents:
     serializedVersion: 2
     m_Bits: 256
+  canInteract: 0
   item: {fileID: 0}

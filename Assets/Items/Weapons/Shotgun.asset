@@ -15,8 +15,8 @@ MonoBehaviour:
   category: 0
   itemName: Shotgun
   icon: {fileID: 21300000, guid: ee78b05316d53cb4eb9da733a1191d39, type: 3}
-  amount: 0
-  maxAmount: 10
+  amount: 10
+  maxAmount: 15
   itemPrefab: {fileID: 9001215888271036159, guid: 1a5353af8031fff4cbd8fa76eb153edd,
     type: 3}
   damageModifier: 0

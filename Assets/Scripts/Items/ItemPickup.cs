@@ -11,6 +11,8 @@ public class ItemPickup : Interactable
         base.Interact();
 
         PickUp();
+
+        Debug.Log(item.itemName + " Picked up");
     }
 
 
@@ -18,10 +20,21 @@ public class ItemPickup : Interactable
     {
         bool wasPickedUp = Inventory.instance.Add(item);
 
-        if (wasPickedUp )
+        if (wasPickedUp)
         {
 
+            if (item.category == Category.Weapon)
+            {   
 
+                
+                Ammo newAmmo = new Ammo();
+                newAmmo.weapon = (Weapon)item;
+                newAmmo.itemName = item.itemName + "Ammo";
+                newAmmo.amount = item.amount;
+                newAmmo.category = Category.Ammo;
+                Inventory.instance.Add(newAmmo);
+                Destroy(newAmmo);
+            }
             //Here destroyed but ideally it would be
             //Pooled up from the catalog/object pooler
 

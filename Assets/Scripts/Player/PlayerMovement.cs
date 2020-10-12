@@ -4,51 +4,54 @@ using System.Collections;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private Transform playerCamera = null;
+    [SerializeField] private Transform equipmentParent = null;
+
+    [SerializeField] private float interactionRadius = 20.0f;
+    [SerializeField] private float rotSpeed = 5.0f;
+    [SerializeField] private float moveSpeed = 6.0f;
+
+    [SerializeField] private float jumpSpeed = 10.0f;
+    [SerializeField] private float gravity = -9.8f;
+    [SerializeField] private float terminalVelocity = -10.0f;
+    [SerializeField] private float minFall = -1.5f;
 
 
-
-    [SerializeField] private Transform target = null;
-
-    private Camera playerCamera;
-
-
-    public float rotSpeed = 5.0f;
-    public float moveSpeed = 6.0f;
-
-    public float jumpSpeed = 15.0f;
-    public float gravity = -9.8f;
-    public float terminalVelocity = -10.0f;
-    public float minFall = -1.5f;
-
+    private CharacterController _charController;
+    private CameraFollow _camController;
     private float _vertSpeed;
     private ControllerColliderHit _contact;
 
     private Animator _animator;
-    private MazeCell currentCell;
+    private MazeCell _currentCell;
 
 
-    public bool ikActive = false;
+    [SerializeField] private bool ikActive = false;
 
 
-    [SerializeField] private Transform rightHandObj = null;
 
+    //IK animation members
     [SerializeField] private Transform lookObj = null;
 
-    private CharacterController _charController;
+
+
     private VariableJoystick variableJoystick;
-
-
-
+    private int raycastLayers;
     void Start()
     {
+        int playerLayerMask = LayerMask.NameToLayer("Player");
+        raycastLayers = (1 << playerLayerMask);
+        raycastLayers = ~raycastLayers;
 
-        playerCamera = target.GetComponent<Camera>();
+
         _charController = GetComponent<CharacterController>();
+        _camController = playerCamera.parent.GetComponent<CameraFollow>();
+
         _animator = GetComponent<Animator>();
-        if (rightHandObj != null)
+        if (equipmentParent != null)
         {
 
-            EquipmentManager.instance.targetHand = rightHandObj;
+            EquipmentManager.instance.equipmentParent = equipmentParent;
 
         }
 
@@ -58,50 +61,49 @@ public class PlayerMovement : MonoBehaviour
 
 #endif
     }
+
+    Vector3 movement;
     void Update()
     {
-        Vector3 movement = Vector3.zero;
+        //TODO : Should be in different script . Since ultimate goal is to make this available on both mobile and desktop .
+        #region  User Input Handler    
 
 
-        //Input based on platform
+        //Movement Input based on platform
 #if UNITY_ANDROID && !UNITY_EDITOR
 
 
         float horInput = variableJoystick.Horizontal;
         float vertInput = variableJoystick.Vertical;
-#else 
+#else
 
-            float horInput = Input.GetAxis("Horizontal");
-            float vertInput = Input.GetAxis("Vertical");
-        
+        float horInput = Input.GetAxis("Horizontal");
+        float vertInput = Input.GetAxis("Vertical");
+
 #endif
 
 
-
+        //1- Movement command
         if (horInput != 0 || vertInput != 0)
         {
+            movement = Vector3.zero;
             //Run movement
             movement.x = horInput * moveSpeed;
             movement.z = vertInput * moveSpeed;
-            movement = Vector3.ClampMagnitude(movement, moveSpeed);
-            //move camera to face player direction only when its not aiming
-            if (!target.parent.GetComponent<CameraFollow>().focus)
+            //TODO : fix backward  walking in aim mode
+            if (playerCamera.parent.GetComponent<CameraFollow>().focus)
             {
-                Quaternion tmp = target.rotation;
-                target.eulerAngles = new Vector3(0, target.eulerAngles.y, 0);
-                movement = target.TransformDirection(movement);
-                target.rotation = tmp;
-                Debug.Log("cam");
-                Quaternion direction = Quaternion.LookRotation(movement);
-                transform.rotation = Quaternion.Lerp(transform.rotation,
-                direction, rotSpeed * Time.deltaTime);
-            }else{
-
-
-                transform.rotation =  Quaternion.LookRotation(movement);
+                movement.z = Mathf.Clamp(movement.z, 0, Mathf.Abs(movement.z));
             }
+            movement = Vector3.ClampMagnitude(movement, moveSpeed);
 
-            
+            Quaternion tmp = playerCamera.rotation;
+            playerCamera.eulerAngles = new Vector3(0, playerCamera.eulerAngles.y, 0);
+            movement = playerCamera.TransformDirection(movement);
+            playerCamera.rotation = tmp;
+            Quaternion direction = Quaternion.LookRotation(movement);
+            transform.rotation = Quaternion.Lerp(transform.rotation, direction, rotSpeed * Time.deltaTime);
+
 
 
         }
@@ -110,10 +112,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-
-
-        // y movement: possibly jump impulse up, always accel down
-        // could _charController.isGrounded instead, but then cannot workaround dropoff edge
+        //2- Jump command
         if (_charController.isGrounded)
         {
 
@@ -131,33 +130,30 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             _animator.SetBool("Jumping", false);
-            _vertSpeed += gravity * 5 * Time.deltaTime;
+            _vertSpeed += gravity * 2 * Time.deltaTime;
 
 
         }
-        movement.y = _vertSpeed;
 
 
-
+        //3- Aim command 
         if (Input.GetButtonDown("Aim"))
         {
-            target.parent.GetComponent<CameraFollow>().CameraFocus(movement);
-            
+            playerCamera.parent.GetComponent<CameraFollow>().CameraFocus(movement);
             _animator.SetBool("Aiming", !_animator.GetBool("Aiming"));
-                        toggleAnimationLayers(1);
-
+            toggleAnimationLayers(1);
             toggleAnimationLayers(0);
 
         }
 
-        movement *= Time.deltaTime;
-        _charController.Move(movement);
 
 
-        //Pickup object if touched 
+
+        //4- Pickup/Interact command
+#if UNITY_ANDROID
         if ((Input.touchCount > 0) && (Input.GetTouch(0).phase == TouchPhase.Began))
         {
-            Ray raycast = playerCamera.ScreenPointToRay(Input.GetTouch(0).position);
+            Ray raycast = target.GetComponent<Camera>().ScreenPointToRay(Input.GetTouch(0).position);
             RaycastHit raycastHit;
             if (Physics.Raycast(raycast, out raycastHit))
             {
@@ -176,43 +172,106 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+#else
+        if (Input.GetButtonDown("Interact"))
+        {
+
+
+            // TODO : Needs optimization for now just cast a sphere to see if any are interractable .
+            //        Player must be able to choose the weapons to pickup.
+            // Sol: Clickable ToolTip on weapon and trigger it if interactble is hit . 
+            //      Player must click on tooltip to pickup . 
+            //      Implement it from Interactable base class for All interactables
+            RaycastHit[] hits = Physics.SphereCastAll(playerCamera.position, 5.0f, Vector3.forward, Mathf.Infinity, raycastLayers);
+            foreach (RaycastHit hit in hits)
+            {
+                Debug.Log("Collision with object : " + hit.transform.tag);
+                if (hit.transform.GetComponent<Interactable>())
+                {
+                    Interactable interactable = hit.transform.GetComponent<Interactable>();
+                    //Debug.Log("Found interactable");
+
+                    if (interactable.canInteract)
+                    {
+                        interactable.Interact();
+                        //Debug.Log("Has interacted");
+                    }
+
+                }
+            }
+        }
+#endif
+
+
+
+
+        //5- Inventory Command
+        if (Input.GetButtonDown("Inventory"))
+        {
+            InventoryUI.instance.OnInventoryBtnClicked();
+            _camController.TriggerCameraLock();
+        }
+
+        //6-Fire Command :
+        if (Input.GetButtonDown("Fire1") && playerCamera.parent.GetComponent<CameraFollow>().focus )
+        {
+            EquipmentManager.instance.weaponSlot.OnSlotClicked();
+        }
+
+        #endregion
+        movement.y = _vertSpeed;
+        movement *= Time.deltaTime;
+        _charController.Move(movement);
+    }
+
+
+    void OnDrawGizmosSelected()
+    {
+
+        //Gizmos.DrawSphere(transform.position, interactionRadius);
+
+
 
     }
 
-    // store collision to use in Update
+    //Store collision to use in Update
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
         _contact = hit;
     }
 
+
+
     public void SetLocation(MazeCell cell)
     {
-        if (currentCell != null)
+        if (_currentCell != null)
         {
-            currentCell.OnPlayerExited();
+            _currentCell.OnPlayerExited();
         }
-        currentCell = cell;
+        _currentCell = cell;
         transform.localPosition = cell.transform.localPosition;
-        currentCell.OnPlayerEntered();
+        _currentCell.OnPlayerEntered();
     }
 
 
-    //
-    private void toggleAnimationLayers(int index ){
+    //Switch between animations in Aim mode and in Normal between
+    private void toggleAnimationLayers(int index)
+    {
 
-        if(_animator.GetLayerWeight(index) == 1 ){
-            _animator.SetLayerWeight(index, 0 );
-            Debug.Log(_animator.GetLayerIndex("Normal mode"));
+        if (_animator.GetLayerWeight(index) == 1)
+        {
+            _animator.SetLayerWeight(index, 0);
         }
 
-        else if(_animator.GetLayerWeight(index) == 0 ){
-            _animator.SetLayerWeight(index, 1 );
+        else if (_animator.GetLayerWeight(index) == 0)
+        {
+            _animator.SetLayerWeight(index, 1);
         }
-        
+
     }
 
-    //IK animation : 
-
+    //TODO : Needs testing and debugging before using it : 
+    //IK animation
     private void OnAnimatorIK()
     {
         //if the IK is active, set the position and rotation directly to the goal. 
@@ -228,15 +287,15 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // Set the right hand target position and rotation, if one has been assigned
-            if (rightHandObj != null)
+            if (equipmentParent != null)
             {
                 //_animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
                 _animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
                 _animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
 
 
-                _animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandObj.position);
-                _animator.SetIKRotation(AvatarIKGoal.RightHand, rightHandObj.rotation);
+                _animator.SetIKPosition(AvatarIKGoal.RightHand, equipmentParent.position);
+                _animator.SetIKRotation(AvatarIKGoal.RightHand, equipmentParent.rotation);
 
             }
 

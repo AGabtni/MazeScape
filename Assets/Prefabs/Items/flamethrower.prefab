@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 610118155202426990}
   - component: {fileID: 7187318494095809551}
   - component: {fileID: -4110385344363987516}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: flamethrower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 8702615862584783643}
   - component: {fileID: 8702615862588207929}
   - component: {fileID: 8702615862587077113}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh1_Group2_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 8702615862584783645}
   - component: {fileID: 8702615862588207931}
   - component: {fileID: 8702615862587077115}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh2_Group3_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

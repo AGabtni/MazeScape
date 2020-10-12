@@ -177,7 +177,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 9
   m_Type: 1
-  m_Color: {r: 0, g: 0.2, b: 0.4, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -259,7 +259,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!124 &869097191
 Behaviour:
   m_ObjectHideFlags: 0
@@ -285,7 +285,7 @@ Camera:
   m_GameObject: {fileID: 869097189}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 3
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -297,13 +297,13 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1
-    height: 1
+    width: 0.5
+    height: 0.5
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 21
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -326,13 +326,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 869097189}
-  m_LocalRotation: {x: -0.3805352, y: 0.13437894, z: -0.055993985, w: -0.91323596}
-  m_LocalPosition: {x: 4.842108, y: 12.087919, z: -15.993927}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.6, y: 38.4, z: 0.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &888912547 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1006530089, guid: da64f8ddf161a054fa00555b4bbc51e4,
@@ -380,8 +380,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mazePrefab: {fileID: 11400000, guid: a2395bb8a91944f21b621f2614d6db99, type: 3}
   playerPrefab: {fileID: 516598639, guid: e3cf5b069b9c43247aa37a26ac048c0c, type: 3}
-  aiPrefab: {fileID: 6087545045290692410, guid: 8631f8cd4fc24694bbf3fb1cbdadc63c,
+  agentPrefab: {fileID: 6087545045290692410, guid: 8631f8cd4fc24694bbf3fb1cbdadc63c,
     type: 3}
+  agentsNumber: 15
+  weaponsPrefabs:
+  - {fileID: 5547645470172325177, guid: 10255176aed2071489e9d078237d04b7, type: 3}
+  - {fileID: 9001215888271036159, guid: 1a5353af8031fff4cbd8fa76eb153edd, type: 3}
 --- !u!4 &1464554643
 Transform:
   m_ObjectHideFlags: 0
@@ -449,7 +453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f80ba34788777f47a035069cc134d74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetHand: {fileID: 0}
+  equipmentParent: {fileID: 0}
   weaponInstance: {fileID: 0}
   weaponSlot: {fileID: 888912547}
 --- !u!1001 &6978516990007620277
@@ -462,7 +466,7 @@ PrefabInstance:
     - target: {fileID: 6978516990646778178, guid: da64f8ddf161a054fa00555b4bbc51e4,
         type: 3}
       propertyPath: m_Name
-      value: InGameGUI
+      value: HUD
       objectReference: {fileID: 0}
     - target: {fileID: 6978516990646778190, guid: da64f8ddf161a054fa00555b4bbc51e4,
         type: 3}
@@ -1017,6 +1021,16 @@ PrefabInstance:
     - target: {fileID: 6978516990291064245, guid: da64f8ddf161a054fa00555b4bbc51e4,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978516990646778191, guid: da64f8ddf161a054fa00555b4bbc51e4,
+        type: 3}
+      propertyPath: m_PixelPerfect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978516990646778188, guid: da64f8ddf161a054fa00555b4bbc51e4,
+        type: 3}
+      propertyPath: m_UiScaleMode
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

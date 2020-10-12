@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3576319463909692864}
   - component: {fileID: 3576319463908398562}
   - component: {fileID: 3576319463907268386}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh1_Group2_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3576319463909692866}
   - component: {fileID: -7299969715528104436}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: ammo_pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,6 +127,7 @@ MonoBehaviour:
   interactiveAgents:
     serializedVersion: 2
     m_Bits: 256
+  canInteract: 0
   item: {fileID: 0}
 --- !u!1 &3576319463909263846
 GameObject:
@@ -139,7 +140,7 @@ GameObject:
   - component: {fileID: 3576319463909692870}
   - component: {fileID: 3576319463908398560}
   - component: {fileID: 3576319463907268384}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh2_Group3_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

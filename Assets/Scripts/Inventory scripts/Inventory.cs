@@ -49,33 +49,27 @@ public class Inventory : MonoBehaviour
 
         if (item.category == Category.Ammo)
         {
-            KeyValuePair<Ammo,int> foundAmmo ; 
+            KeyValuePair<Ammo, int> foundAmmo;
             foreach (var pair in ammunition)
             {
-                if (pair.Key.itemName.Equals(item.itemName)){
+                if (pair.Key.itemName.Equals(item.itemName))
+                {
                     foundAmmo = pair;
                     break;
                 }
-                
+
             }
-            if (foundAmmo.Key != null){
+            if (foundAmmo.Key != null)
+            {
                 ammunition[foundAmmo.Key] += item.amount;
             }
             else
                 ammunition.Add((Ammo)item, item.amount);
-                
+
 
             //If weapon is equipped and needs ammo : 
-            if(EquipmentManager.instance.weaponInstance != null)
-                EquipmentManager.instance.weaponInstance.GetComponent<WeaponController>().GetAmmo();
-            
-        }
-        else if (item.category == Category.Weapon)
-        {
-
-
-            itemsList.Add(item);
-
+            if (EquipmentManager.instance.weaponInstance != null)
+                EquipmentManager.instance.weaponInstance.GetComponent<FireWeapon>().GetAmmo();
 
         }
         else
@@ -83,7 +77,7 @@ public class Inventory : MonoBehaviour
 
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke();
-
+        
 
         return true;
 

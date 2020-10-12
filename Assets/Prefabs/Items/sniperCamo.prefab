@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7312096530310211569}
   - component: {fileID: 7312096530313635793}
   - component: {fileID: 7312096530312504593}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh1_Group2_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 7312096530310211571}
   - component: {fileID: 7312096530313635795}
   - component: {fileID: 7312096530312504595}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh2_Group3_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 7312096530310211573}
   - component: {fileID: 7312096530313635797}
   - component: {fileID: 7312096530312504597}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh3_Group4_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 7312096530310211575}
   - component: {fileID: 7312096530313635799}
   - component: {fileID: 7312096530312504599}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh4_Group5_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 7312096530310211577}
   - component: {fileID: 4690028166572339834}
   - component: {fileID: 7558391192750949635}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: sniperCamo
   m_TagString: Untagged
   m_Icon: {fileID: 0}

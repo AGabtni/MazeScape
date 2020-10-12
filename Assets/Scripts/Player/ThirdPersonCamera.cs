@@ -2,26 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraCollision : MonoBehaviour {
+public class ThirdPersonCamera : MonoBehaviour {
 
     public LayerMask ignoreMask;
 	public float minDistance = 1.0f;
 	public float maxDistance = 4.0f;
 	public float smooth = 10.0f;
-	Vector3 dollyDir;
-	public Vector3 dollyDirAdjusted;
-	public float distance;
+
+
+	private Vector3 targetDirection;
+	private float distance;
 
 	// Use this for initialization
 	void Awake () {
-		dollyDir = transform.localPosition.normalized;
+		targetDirection = transform.localPosition.normalized;
 		distance = transform.localPosition.magnitude;
+		GetComponent<Camera>().cullingMask = ~(1 << LayerMask.NameToLayer("Map"));
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		Vector3 desiredCameraPos = transform.parent.TransformPoint (dollyDir * maxDistance);
+		Vector3 desiredCameraPos = transform.parent.TransformPoint (targetDirection * maxDistance);
 		RaycastHit hit;
 
 		if (Physics.Linecast (transform.parent.position, desiredCameraPos, out hit,ignoreMask )) {
@@ -31,6 +33,6 @@ public class CameraCollision : MonoBehaviour {
 					distance = maxDistance;
 				}
 
-				transform.localPosition = Vector3.Lerp (transform.localPosition, dollyDir * distance, Time.deltaTime * smooth);
+				transform.localPosition = Vector3.Lerp (transform.localPosition, targetDirection * distance, Time.deltaTime * smooth);
 	}
 }

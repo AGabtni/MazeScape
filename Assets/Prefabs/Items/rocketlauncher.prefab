@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6545957992589701595}
   - component: {fileID: -2590190529903328837}
   - component: {fileID: -2033471915924120887}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: rocketlauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 6545957992589701597}
   - component: {fileID: 6545957992586834429}
   - component: {fileID: 6545957992587932477}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh2_Group3_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 6545957992589701599}
   - component: {fileID: 6545957992586834431}
   - component: {fileID: 6545957992587932479}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh1_Group2_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

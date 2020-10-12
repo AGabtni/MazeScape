@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8361619002387072584}
   - component: {fileID: 8361619002384205416}
   - component: {fileID: 8361619002385302696}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh3_Group4_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 8361619002387072586}
   - component: {fileID: 387136422634692543}
   - component: {fileID: -7363361567959445633}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: pistolSilencer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 8361619002387072588}
   - component: {fileID: 8361619002384205420}
   - component: {fileID: 8361619002385302700}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh1_Group2_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 8361619002387072590}
   - component: {fileID: 8361619002384205422}
   - component: {fileID: 8361619002385302702}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh2_Group3_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 120796343097649908}
   - component: {fileID: 6779936397076597479}
   - component: {fileID: 3136375736496209235}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh1_Group1_Model (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 26518727918326030}
   - component: {fileID: 1236229486438449691}
   - component: {fileID: 8763440454833532789}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh1_Group1_Model (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 7563508991620662376}
   - component: {fileID: 734923554960607566}
   - component: {fileID: 652323691304593213}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh1_Group1_Model (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 5180149429658601248}
   - component: {fileID: 5180149429655176962}
   - component: {fileID: 5180149429656307138}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh1_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,8 +323,7 @@ GameObject:
   - component: {fileID: 5180149429658601250}
   - component: {fileID: 1972914150467232562}
   - component: {fileID: 1518128967424912874}
-  - component: {fileID: 2957576458033667054}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: ammo_shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -384,22 +383,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.039700225, y: 0.022584591, z: 0.01990817}
   m_Center: {x: 0.0047907783, y: 0.00091914274, z: -0.004636054}
---- !u!54 &2957576458033667054
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5180149429658311426}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &6504900837256208726
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,7 +394,7 @@ GameObject:
   - component: {fileID: 5114798885922826267}
   - component: {fileID: 3365486964257382017}
   - component: {fileID: 428404294777627002}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh1_Group1_Model (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -489,7 +472,7 @@ GameObject:
   - component: {fileID: 5545434094697504961}
   - component: {fileID: 7312459702007606020}
   - component: {fileID: 8836577348082203962}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh1_Group1_Model (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -567,7 +550,7 @@ GameObject:
   - component: {fileID: 5512072270697057480}
   - component: {fileID: 3815692491861572008}
   - component: {fileID: 7478430039773180866}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh1_Group1_Model (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -645,7 +628,7 @@ GameObject:
   - component: {fileID: 3492099748325508804}
   - component: {fileID: 1171483842422511672}
   - component: {fileID: 914424618336636268}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh1_Group1_Model (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

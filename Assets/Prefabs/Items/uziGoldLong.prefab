@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 113443843822892737}
   - component: {fileID: 113443843825792737}
   - component: {fileID: 113443843824792609}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh3_Group4_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 113443843822892739}
   - component: {fileID: 113443843825792739}
   - component: {fileID: 113443843824792611}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh4_Group5_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 113443843822892741}
   - component: {fileID: 113443843825792741}
   - component: {fileID: 113443843824792613}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh1_Group2_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 113443843822892743}
   - component: {fileID: 113443843825792743}
   - component: {fileID: 113443843824792615}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh2_Group3_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 113443843822892749}
   - component: {fileID: -6052104014754429307}
   - component: {fileID: 1802630322084241991}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: uziGoldLong
   m_TagString: Untagged
   m_Icon: {fileID: 0}

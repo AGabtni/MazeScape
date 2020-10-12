@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6829258355473438977}
   - component: {fileID: 6829258355474209063}
   - component: {fileID: 6829258355475340263}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh2_Group3_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6829258355473438981}
   - component: {fileID: 7662702036664121724}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: ammo_machinegunLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,6 +127,7 @@ MonoBehaviour:
   interactiveAgents:
     serializedVersion: 2
     m_Bits: 256
+  canInteract: 0
   item: {fileID: 0}
 --- !u!1 &6829258355473335591
 GameObject:
@@ -139,7 +140,7 @@ GameObject:
   - component: {fileID: 6829258355473438983}
   - component: {fileID: 6829258355474209061}
   - component: {fileID: 6829258355475340261}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh1_Group2_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

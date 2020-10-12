@@ -8,19 +8,15 @@ public class EquipmentManager : MonoBehaviour
 
     public static EquipmentManager instance;
     //public MeshRenderer targetMesh;
-    public Transform targetHand;
-
+    public Transform equipmentParent;
     Weapon currentWeapon;
-    
-
-
 
 
     void Awake()
     {
 
         instance = this;
-       
+
     }
 
     #endregion
@@ -40,60 +36,62 @@ public class EquipmentManager : MonoBehaviour
 
 
 
-    public Transform weaponInstance;
-
+    private Transform _weaponInstance;
+    public Transform weaponInstance
+    {
+        get { return _weaponInstance; }
+        private set { _weaponInstance = value; }
+    }
     public EquipmentSlot weaponSlot;
-
     Inventory inventory;	// Reference to our inventory
 
     private void Start()
     {
         inventory = Inventory.instance;
         weaponSlot.ClearSlot();
-        
+
     }
 
 
-    public void EquipWeapon (Weapon newWeapon)
+    public void EquipWeapon(Weapon newWeapon)
     {
         Weapon oldWeapon = UnequipWeapon();
 
-        if(onWeaponChanged != null)
+        if (onWeaponChanged != null)
         {
             onWeaponChanged.Invoke(newWeapon, oldWeapon);
         }
 
         //Spawn weapon
         currentWeapon = newWeapon;
-        weaponInstance = Instantiate(currentWeapon.itemPrefab, targetHand) as Transform;
-        GameObject.Destroy(weaponInstance.GetComponent<ItemPickup>());
-        weaponInstance.GetComponent<WeaponController>().enabled = true;
+
+        weaponInstance = Instantiate(currentWeapon.itemPrefab, equipmentParent) as Transform;
         weaponInstance.localPosition = currentWeapon.PickUp_Position;
         weaponInstance.localEulerAngles = currentWeapon.PickUp_Rotation;
+        //Remove weapons pickup script
+        GameObject.Destroy(weaponInstance.GetComponent<ItemPickup>());
+
 
         //Add it to equipment slot
-        weaponSlot.AddItem(currentWeapon);  
+        weaponSlot.AddItem(currentWeapon);
 
-
-        
-            if(weaponSlot.onItemUsedCallback != null)
-                weaponSlot.onItemUsedCallback.Invoke();  
     }
 
     public Weapon UnequipWeapon()
     {
         Weapon oldWeapon = null;
 
-        if(currentWeapon != null) {
+        if (currentWeapon != null)
+        {
 
             oldWeapon = currentWeapon;
             inventory.Add(oldWeapon);
-            weaponSlot.ClearSlot();   
+            weaponSlot.ClearSlot();
 
             currentWeapon = null;
-            if(weaponInstance != null)
+            if (weaponInstance != null)
             {
-                Destroy(weaponInstance.GetComponent<WeaponController>());
+                Destroy(weaponInstance.GetComponent<FireWeapon>());
                 Destroy(weaponInstance.gameObject);
 
             }
@@ -102,11 +100,11 @@ public class EquipmentManager : MonoBehaviour
             {
 
                 onWeaponChanged.Invoke(null, oldWeapon);
-                
+
             }
 
-            
-            
+
+
 
 
 
@@ -117,9 +115,20 @@ public class EquipmentManager : MonoBehaviour
 
     }
 
-    public void Update(){
+    //Should be weapon agnostic . 
+    //  Needs to add WEapon Type Member to weapon scriptable item
+    public void TriggerWeapon()
+    {
 
-        
+        if (weaponInstance != null)
+        {
+            weaponInstance.GetComponent<FireWeapon>().Shoot();
+        }
+    }
+    public void Update()
+    {
+
+
     }
 
 }

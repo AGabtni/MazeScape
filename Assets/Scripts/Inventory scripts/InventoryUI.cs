@@ -7,25 +7,42 @@ public class InventoryUI : MonoBehaviour
 {
 
     public Transform itemsParent;
-    public GameObject inventoryUI;
+    [SerializeField]private GameObject inventoryWindow;
 
 
-    Inventory inventory; // current player inventory
+    
+    #region Singleton
+    public static InventoryUI instance;
 
+    private void Awake()
+    {
+        if (instance != null)
+        {
+
+            Debug.LogWarning("There is more than one inventory UI instance ");
+
+            return;
+        }
+
+
+        instance = this;
+    }
+
+
+    #endregion
 
     InventorySlot[] slots;
-    
+
     private void Start()
     {
-        inventory = Inventory.instance;
         //Subscribe the ui update function the on item changed callback
-        inventory.onItemChangedCallback += UpdateUI;
+        Inventory.instance.onItemChangedCallback += UpdateUI;
 
 
 
 
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
-        inventoryUI.SetActive(false);
+        inventoryWindow.SetActive(false);
 
 
         UpdateUI();
@@ -34,7 +51,7 @@ public class InventoryUI : MonoBehaviour
 
     public void OnInventoryBtnClicked()
     {
-        inventoryUI.SetActive(!inventoryUI.activeSelf);
+        inventoryWindow.SetActive(!inventoryWindow.activeSelf);
 
     }
 
@@ -43,34 +60,27 @@ public class InventoryUI : MonoBehaviour
     {
 
 
-        //BLOCK TO REMOVE AFTER FINISHING
-        #if UNITY_EDITOR && !UNITY_ANDROID
-            if (Input.GetButtonDown("Inventory"))
-                inventoryUI.SetActive(!inventoryUI.activeSelf);
 
-        #endif
-
-        
 
     }
 
 
     private void UpdateUI()
     {
-        for (int i=0; i< slots.Length; i++)
+        for (int i = 0; i < slots.Length; i++)
         {
-            if( i < inventory.itemsList.Count)
+            if (i < Inventory.instance.itemsList.Count)
             {
 
-                slots[i].AddItem(inventory.itemsList[i]);
-                
+                slots[i].AddItem(Inventory.instance.itemsList[i]);
+
             }
             else
             {
                 //Otherwise 
                 slots[i].ClearSlot();
             }
-            
+
         }
     }
 

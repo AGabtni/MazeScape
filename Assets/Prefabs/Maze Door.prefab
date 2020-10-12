@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 2300006}
   - component: {fileID: 7653102642449282474}
   - component: {fileID: 6896064041387316985}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 2300008}
   - component: {fileID: 6204212803910712444}
   - component: {fileID: 1799838492046076472}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -414,7 +414,7 @@ GameObject:
   - component: {fileID: 2300010}
   - component: {fileID: 2898149986444033319}
   - component: {fileID: 3517198485336127461}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -534,7 +534,7 @@ GameObject:
   - component: {fileID: 11400002}
   - component: {fileID: 267985382}
   - component: {fileID: 2637967011417731312}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: Maze Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}

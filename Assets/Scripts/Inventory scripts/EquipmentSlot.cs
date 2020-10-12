@@ -25,28 +25,15 @@ public class EquipmentSlot : MonoBehaviour
 
         onItemUsedCallback += UpdateSlot;
 
-        UpdateSlot();
     }
 
 
     public void AddItem(Item newItem)
     {
         item = newItem;
-        switch (newItem.category)
-        {
 
-            case (Category.Equipment):
-                AddEquipment();
-                break;
-
-            case (Category.Weapon):
-                AddWeapon();
-                break;
-
-
-
-        }
         //removeButton.interactable = true;
+        Amount.gameObject.SetActive(newItem.category == Category.Weapon ? true : false);
         Icon.sprite = item.icon;
         Icon.enabled = true;
         if (onItemUsedCallback != null)
@@ -54,16 +41,6 @@ public class EquipmentSlot : MonoBehaviour
 
     }
 
-    public void AddWeapon()
-    {
-
-        Amount.gameObject.SetActive(true);
-
-    }
-    public void AddEquipment()
-    {
-        Amount.gameObject.SetActive(false);
-    }
 
 
     public void ClearSlot()
@@ -83,8 +60,9 @@ public class EquipmentSlot : MonoBehaviour
     void UpdateSlot()
     {
 
-        if(EquipmentManager.instance.weaponInstance != null)
-            Amount.text = "" + EquipmentManager.instance.weaponInstance.GetComponent<WeaponController>().currentAmmo;
+        if (EquipmentManager.instance.weaponInstance != null)
+            Amount.text = "" + EquipmentManager.instance.weaponInstance.GetComponent<FireWeapon>().currentAmmo;
+
 
     }
     public void OnSlotClicked()
@@ -94,7 +72,6 @@ public class EquipmentSlot : MonoBehaviour
         {
 
             item.Use();
-            EquipmentManager.instance.weaponInstance.GetComponent<WeaponController>().Shoot();
             if (onItemUsedCallback != null)
                 onItemUsedCallback.Invoke();
 

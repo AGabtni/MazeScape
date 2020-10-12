@@ -1,29 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
-	public Maze mazePrefab;
+    [SerializeField] private Maze mazePrefab;
+    [SerializeField] private PlayerMovement playerPrefab;
+    [SerializeField] private EnemyMovement agentPrefab;
+    [SerializeField] private int agentsNumber = 1;
+    [SerializeField] private Transform[] weaponsPrefabs;
+    private Maze _mazeInstance;
 
-	public PlayerMovement playerPrefab;
-    public EnemyMovement aiPrefab;
+    private PlayerMovement _playerInstance;
 
-
-	private Maze mazeInstance;
-
-	private PlayerMovement playerInstance;
-    private EnemyMovement aiInstance;
-
-    private GameObject agentsHolder;
+    private GameObject _agentsHolder;
 
 
     private void Awake()
     {
-        agentsHolder = GameObject.Find("AgentsHolder");
+        _agentsHolder = GameObject.Find("agentsHolder");
 
 
         //Hide Joysticks when using editor
-        #if !UNITY_EDITOR
+#if !UNITY_EDITOR
                 VariableJoystick[] joysticks = FindObjectsOfType<VariableJoystick>();
                 if (joysticks.Length > 0)
                 {
@@ -35,91 +34,107 @@ public class GameManager : MonoBehaviour {
 
 
 
-        #endif
+#endif
 
     }
 
 
-    private void Start() {
+    private void Start()
+    {
 
         InstantMaze();
-        InstantiateAgents();
-            
+        InstantiateAgents(agentsNumber);
+        InstantiateWeapons();
 
     }
 
-    private void Update () {
-		if (Input.GetKeyDown(KeyCode.P)) {
-			//RestartGame();
-		}
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            //RestartGame();
+        }
 
 
         if (Input.GetKeyDown(KeyCode.N))
         {
 
         }
-	}
+    }
 
 
     //Instantiate Maze
     private void InstantMaze()
     {
-        //Camera.main.clearFlags = CameraClearFlags.Skybox;
-        //Camera.main.rect = new Rect(0f, 0f, 1f, 1f);
-        mazeInstance = Instantiate(mazePrefab) as Maze;
-        mazeInstance.InstantGenerate();
-        playerInstance = Instantiate(playerPrefab) as PlayerMovement;
-        playerInstance.SetLocation(mazeInstance.GetCell(mazeInstance.RandomCoordinates));
-        //Camera.main.clearFlags = CameraClearFlags.Depth;
-        //Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
+        Camera.main.clearFlags = CameraClearFlags.Skybox;
+        Camera.main.rect = new Rect(0f, 0f, 1f, 1f);
+        _mazeInstance = Instantiate(mazePrefab) as Maze;
+        _mazeInstance.InstantGenerate();
+        _playerInstance = Instantiate(playerPrefab) as PlayerMovement;
+        _playerInstance.SetLocation(_mazeInstance.GetCell(_mazeInstance.RandomCoordinates));
+        Camera.main.clearFlags = CameraClearFlags.Depth;
+        Camera.main.rect = new Rect(-0.2f, 0.05f, 0.5f, 0.5f);
+
+
+        //Hide enemies on map
+        int camMask = 1 << LayerMask.NameToLayer("Enemy");
+        Camera.main.cullingMask = ~camMask;
 
 
 
-      
+
 
 
     }
 
-    private void InstantiateAgents()
+    private void InstantiateAgents(int num)
     {
 
-        int roomsCount = 0;
 
-        for (int i = 0; i < mazeInstance.rooms.Count; i++)
+
+        for (int i = 0; i < num; i++)
         {
 
 
-            if (mazeInstance.rooms[i].CellsNumber == 1)
+            EnemyMovement aiInstance = Instantiate(agentPrefab) as EnemyMovement;
+            aiInstance.SetLocation(_mazeInstance.rooms[i].RandomCell);
+            aiInstance.name = "Agent N°" + i;
+
+
+        }
+
+
+
+    }
+
+
+    //Instantiate one random weapon per room
+    private void InstantiateWeapons()
+    {
+
+
+        for (int i = 0; i < _mazeInstance.RoomsNumber; i++)
+        {
+            MazeCell cell = _mazeInstance.rooms[i].RandomCell;
+            //Instantiate a random weapon with bullets
+            if (weaponsPrefabs.Length > 0)
             {
-                MazeCell room = mazeInstance.rooms[i].cells[0];
-                roomsCount++;
-                room.transform.GetComponentInChildren<MeshRenderer>().material = Resources.Load("Materials/_Hologram_Rim_Flicker_Blue") as Material;
+                Transform randomWeapon = Instantiate(weaponsPrefabs[Random.Range(0, weaponsPrefabs.Length)], cell.transform);
+                randomWeapon.localPosition = new Vector3(Random.Range(-0.4f, 0.4f), 0.1f, Random.Range(-0.4f, 0.4f));
 
             }
 
         }
 
-
-        for(int i=0; i< 15; i++)
-        {
-
-
-            EnemyMovement aiInstance = Instantiate(aiPrefab) as EnemyMovement;
-            aiInstance.SetLocation(mazeInstance.rooms[i].RandomCell);
-            aiInstance.GetComponentInChildren<SkinnedMeshRenderer>().material = Resources.Load("Materials/_Hologram_Rim_Flicker_Blue") as Material;
-            aiInstance.name = aiInstance.name + i;
-        }
-
-
-
     }
-
-	private void RestartGame () {
-		StopAllCoroutines();
-		Destroy(mazeInstance.gameObject);
-		if (playerInstance != null) {
-			Destroy(playerInstance.gameObject);
-		}
+    private void RestartGame()
+    {
+        StopAllCoroutines();
+        Destroy(_mazeInstance.gameObject);
+        if (_playerInstance != null)
+        {
+            Destroy(_playerInstance.gameObject);
+        }
         InstantMaze();
-	}
+    }
 }

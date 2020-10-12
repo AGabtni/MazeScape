@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5194135005058665912}
   - component: {fileID: 5194135005055798682}
   - component: {fileID: 5194135005056765786}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh1_Group2_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 5194135005058665914}
   - component: {fileID: -2721483521970733571}
   - component: {fileID: 8325747563083836337}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: machinegunLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 5194135005058665916}
   - component: {fileID: 5194135005055798686}
   - component: {fileID: 5194135005056765790}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh3_Group4_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 5194135005058665918}
   - component: {fileID: 5194135005055798680}
   - component: {fileID: 5194135005056765784}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh2_Group3_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -27,7 +27,12 @@ ModelImporter:
   - first:
       74: -4311089673816823940
     second: Root|Root|Root|Walk_loop|Root|Walk_loop
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 10650, guid: 0000000000000000f000000000000000, type: 0}
   materials:
     importMaterials: 1
     materialName: 0

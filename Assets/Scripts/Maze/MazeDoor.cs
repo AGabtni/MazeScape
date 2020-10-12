@@ -2,16 +2,17 @@
 using UnityEngine.AI;
 using System.Collections;
 
-public class MazeDoor : MazePassage {
+public class MazeDoor : MazePassage
+{
 
 
     private OffMeshLink offMeshLink;
     public float closeDoorTime = 5.0f;
-	private static Quaternion
-		normalRotation = Quaternion.Euler(0f, -90f, 0f),
-		mirroredRotation = Quaternion.Euler(0f, 90f, 0f);
-    private static Vector3 UpPosition , MirroredUp; 
-	public Transform hinge;
+    private static Quaternion
+        normalRotation = Quaternion.Euler(0f, -90f, 0f),
+        mirroredRotation = Quaternion.Euler(0f, 90f, 0f);
+    private static Vector3 UpPosition, MirroredUp;
+    public Transform hinge;
 
     private bool openDoor = false;
     private bool isOpen = false;
@@ -20,53 +21,55 @@ public class MazeDoor : MazePassage {
 
     public void Start()
     {
-        
+
     }
     public void Update()
     {
-       
+
 
 
         isOpen = Quaternion.Angle(hinge.localRotation, Quaternion.identity) > 0 ? true : false;
-        
+
 
     }
 
 
+    //TODO : fix door operations . Issue for when the door is mirrored
 
 
 
-
-    private IEnumerator OpenDoor()
+    public IEnumerator OpenDoor()
     {
+        StopAllCoroutines();
         openDoor = true;
         OtherSideOfDoor.isDoorOpen = true;
-        while (Quaternion.Angle(hinge.localRotation, isMirrored ? mirroredRotation : normalRotation)  > 0)
+
+        while (Quaternion.Angle(hinge.localRotation, isMirrored ? mirroredRotation : normalRotation) > 1)
         {
             OtherSideOfDoor.hinge.localRotation = hinge.localRotation = Quaternion.Slerp(hinge.localRotation,
                                                                                          isMirrored ? mirroredRotation : normalRotation,
                                                                                          2 * Time.deltaTime);
 
-            yield return new WaitForSeconds(0.01f);
+            yield return null;
 
         }
 
-        StartCoroutine("CloseDoor");
+        //StartCoroutine("CloseDoor");
 
 
 
     }
 
-    private IEnumerator CloseDoor()
+    public IEnumerator CloseDoor()
     {
-        yield return new WaitForSeconds(2.0f);
+        //yield return new WaitForSeconds(2.0f);
 
-        while(Quaternion.Angle(hinge.localRotation, Quaternion.identity) > 0)
+        while (Quaternion.Angle(hinge.localRotation, Quaternion.identity) > 0)
         {
             hinge.localRotation = Quaternion.Slerp(hinge.localRotation, Quaternion.identity, 2 * Time.deltaTime);
             OtherSideOfDoor.hinge.localRotation = Quaternion.Slerp(OtherSideOfDoor.hinge.localRotation, Quaternion.identity, 2 * Time.deltaTime);
 
-            yield return new WaitForSeconds(0.01f);
+            yield return null;
 
         }
 
@@ -77,31 +80,37 @@ public class MazeDoor : MazePassage {
 
 
     }
-    private MazeDoor OtherSideOfDoor {
-		get {
-			return otherCell.GetEdge(direction.GetOpposite()) as MazeDoor;
-		}
-	}
-	
-	public override void Initialize (MazeCell primary, MazeCell other, MazeDirection direction) {
-		base.Initialize(primary, other, direction);
+    private MazeDoor OtherSideOfDoor
+    {
+        get
+        {
+            return otherCell.GetEdge(direction.GetOpposite()) as MazeDoor;
+        }
+    }
+
+    public override void Initialize(MazeCell primary, MazeCell other, MazeDirection direction)
+    {
+        base.Initialize(primary, other, direction);
         offMeshLink = GetComponentInChildren<OffMeshLink>();
 
 
-        if (OtherSideOfDoor != null) {
+        if (OtherSideOfDoor != null)
+        {
             isMirrored = true;
 
             hinge.localScale = new Vector3(-1f, 1f, 1f);
-			Vector3 p = hinge.localPosition;
-			p.x = -p.x;
-			hinge.localPosition = p;
-		}
-		for (int i = 0; i < transform.childCount; i++) {
-			Transform child = transform.GetChild(i);
-			if (child != hinge) {
-				child.GetComponent<Renderer>().material = cell.room.settings.wallMaterial;
-			}
-		}
+            Vector3 p = hinge.localPosition;
+            p.x = -p.x;
+            hinge.localPosition = p;
+        }
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Transform child = transform.GetChild(i);
+            if (child != hinge)
+            {
+                child.GetComponent<Renderer>().material = cell.room.settings.wallMaterial;
+            }
+        }
 
 
 
@@ -115,19 +124,26 @@ public class MazeDoor : MazePassage {
     }
 
 
-    public override void OnPlayerEntered () {
-        StartCoroutine("OpenDoor");
+    public override void OnPlayerEntered()
+    {
+        //OtherSideOfDoor.hinge.localRotation = hinge.localRotation = Quaternion.identity;
+
         OtherSideOfDoor.cell.room.Show();
-	}
-	
-	public override void OnPlayerExited () {
-		//OtherSideOfDoor.hinge.localRotation = hinge.localRotation = Quaternion.identity;
-		OtherSideOfDoor.cell.room.Hide();
-	}
+
+    }
+
+    public override void OnPlayerExited()
+    {
+        OtherSideOfDoor.hinge.localRotation = hinge.localRotation = Quaternion.identity;
+        StartCoroutine(CloseDoor());
+
+        OtherSideOfDoor.cell.room.Hide();
+    }
 
     public bool isDoorOpen
     {
-        get {
+        get
+        {
             return openDoor;
         }
         set
@@ -137,7 +153,7 @@ public class MazeDoor : MazePassage {
     }
 
 
-   
+
 
 
 

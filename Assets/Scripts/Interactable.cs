@@ -27,7 +27,7 @@ public class Interactable : MonoBehaviour
 
         if (colliders.Length > 0)
         {
-            Debug.Log("Player near by ");
+            //Debug.Log("Player near by ");
             canInteract = true;
             //Here put a ui shit to show that item is nearby
         }

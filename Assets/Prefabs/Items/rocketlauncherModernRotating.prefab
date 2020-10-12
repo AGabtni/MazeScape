@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8162668385124558771}
   - component: {fileID: 2406064934679575315}
   - component: {fileID: -1163165283199839729}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: rocketlauncherModernRotating
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 8162668385124558777}
   - component: {fileID: 8162668385123788697}
   - component: {fileID: 8162668385122657625}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh2_Group3_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 8162668385124558779}
   - component: {fileID: 8162668385123788699}
   - component: {fileID: 8162668385122657627}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh1_Group2_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 8162668385124558781}
   - component: {fileID: 8162668385123788701}
   - component: {fileID: 8162668385122657629}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh4_Group5_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 8162668385124558783}
   - component: {fileID: 8162668385123788703}
   - component: {fileID: 8162668385122657631}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mesh3_Group4_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

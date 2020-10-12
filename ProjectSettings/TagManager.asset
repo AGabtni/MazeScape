@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Cell
   - Target
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -22,8 +23,8 @@ TagManager:
   - Weapon
   - Door
   - Enemy
-  - 
-  - 
+  - Ammo
+  - Map
   - 
   - 
   - 

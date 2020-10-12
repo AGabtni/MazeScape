@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6685191759941437869}
   - component: {fileID: 7058717202741634078}
   - component: {fileID: 5181275902184628043}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh2_Group3_Group1_Model (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 6372475816907049184}
   - component: {fileID: 219693323789994917}
   - component: {fileID: 6371389229912129370}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh2_Group3_Group1_Model (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 4683073362384623154}
   - component: {fileID: 1929360138100571486}
   - component: {fileID: 7451975829596016721}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh1_Group2_Group1_Model (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,22 +265,6 @@ MonoBehaviour:
     m_Bits: 256
   canInteract: 0
   item: {fileID: 11400000, guid: d3f3d1b4e9b50a44ca5f7fb5eab35c5e, type: 2}
---- !u!54 &-61573234917374206
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2732492958953248541}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &2807679878893676536
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,7 +276,7 @@ GameObject:
   - component: {fileID: 7092982044725777428}
   - component: {fileID: 8607038628546541302}
   - component: {fileID: 5642951337370410430}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh1_Group2_Group1_Model (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +354,7 @@ GameObject:
   - component: {fileID: 3213137745623629368}
   - component: {fileID: 4744030209235364555}
   - component: {fileID: 4029934964257384132}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh1_Group2_Group1_Model (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -448,7 +432,7 @@ GameObject:
   - component: {fileID: 8507817000810585207}
   - component: {fileID: 1439370297095074958}
   - component: {fileID: 4810749952430645276}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh2_Group3_Group1_Model (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -526,7 +510,7 @@ GameObject:
   - component: {fileID: 2435578262575109531}
   - component: {fileID: 624965253589984158}
   - component: {fileID: 537954650674819231}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh1_Group2_Group1_Model (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -604,7 +588,7 @@ GameObject:
   - component: {fileID: 174591015324076501}
   - component: {fileID: 6008723170868083285}
   - component: {fileID: 675788926025503210}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh2_Group3_Group1_Model (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -682,7 +666,7 @@ GameObject:
   - component: {fileID: 8582567023049715469}
   - component: {fileID: 8325304293915045620}
   - component: {fileID: 8167701189995101588}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh1_Group2_Group1_Model (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -760,7 +744,7 @@ GameObject:
   - component: {fileID: 925055418237076749}
   - component: {fileID: 8086698408670829321}
   - component: {fileID: 4128534967591506084}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh2_Group3_Group1_Model (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -837,6 +821,18 @@ PrefabInstance:
     - target: {fileID: 100000, guid: f6f9cbe8c064c444eb97e80e2d2135e3, type: 3}
       propertyPath: m_Name
       value: ammo_machinegun
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f6f9cbe8c064c444eb97e80e2d2135e3, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: f6f9cbe8c064c444eb97e80e2d2135e3, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: f6f9cbe8c064c444eb97e80e2d2135e3, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f6f9cbe8c064c444eb97e80e2d2135e3, type: 3}
       propertyPath: m_LocalPosition.x

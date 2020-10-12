@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3707893531627267536}
   - component: {fileID: 3707893531628070386}
   - component: {fileID: 3707893531629168434}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mesh1_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3707893531627267538}
   - component: {fileID: 2356306874221803856}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: ammo_rocketModern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,4 +126,5 @@ MonoBehaviour:
   interactiveAgents:
     serializedVersion: 2
     m_Bits: 256
+  canInteract: 0
   item: {fileID: 0}
