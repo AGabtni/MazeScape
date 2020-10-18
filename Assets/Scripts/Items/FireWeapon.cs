@@ -10,7 +10,7 @@ public class FireWeapon : MonoBehaviour
 
     [SerializeField] private float fireRate = 0.25f;
     [SerializeField] private Transform muzzleTransform;
-    [SerializeField] private Transform bulletPrefab;
+    [SerializeField] private AmmoController bulletPrefab;
     [HideInInspector] public int currentAmmo;
     private int _maxAmmo;
     private float _nextFire;
@@ -107,7 +107,6 @@ public class FireWeapon : MonoBehaviour
         ReleaseBullet();
 
         currentAmmo--;
-
         _isShooting = true;
     }
     void Update()
@@ -126,7 +125,7 @@ public class FireWeapon : MonoBehaviour
     void ReleaseBullet()
     {
 
-        Transform bulletInstance = Instantiate(bulletPrefab, muzzleTransform.position, muzzleTransform.rotation);
+        AmmoController bulletInstance = Instantiate(bulletPrefab, muzzleTransform.position, muzzleTransform.rotation) as AmmoController;
         bulletInstance.GetComponent<Rigidbody>().AddForceAtPosition(muzzleTransform.forward * bulletSpeed, muzzleTransform.position, ForceMode.Impulse);
         //yield return new WaitForSeconds(shotDuration);
         //Destroy(bulletInstance.gameObject);

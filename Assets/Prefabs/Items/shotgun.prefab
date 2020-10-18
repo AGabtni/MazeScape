@@ -286,6 +286,6 @@ MonoBehaviour:
   bulletSpeed: 10
   fireRate: 0.3
   muzzleTransform: {fileID: 4361112481943243687}
-  bulletPrefab: {fileID: 7803641532243508843, guid: e84107f1630e0ec469cd3c1e357738de,
+  bulletPrefab: {fileID: -7510155254772872699, guid: e84107f1630e0ec469cd3c1e357738de,
     type: 3}
   currentAmmo: 0

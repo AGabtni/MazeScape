@@ -33,7 +33,6 @@ public class ItemPickup : Interactable
                 newAmmo.amount = item.amount;
                 newAmmo.category = Category.Ammo;
                 Inventory.instance.Add(newAmmo);
-                Destroy(newAmmo);
             }
             //Here destroyed but ideally it would be
             //Pooled up from the catalog/object pooler

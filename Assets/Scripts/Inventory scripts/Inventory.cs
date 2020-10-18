@@ -72,17 +72,22 @@ public class Inventory : MonoBehaviour
                 EquipmentManager.instance.weaponInstance.GetComponent<FireWeapon>().GetAmmo();
 
         }
-        else
+        else if (item.category == Category.Weapon)
+        {
+            if(itemsList.Count == 0)
+               item.Equip();
+               
             itemsList.Add(item);
+
+        }
 
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke();
-        
+
 
         return true;
 
     }
-
 
     public void Remove(Item item)
     {
@@ -94,9 +99,5 @@ public class Inventory : MonoBehaviour
             onItemChangedCallback.Invoke();
     }
 
-    public void Update()
-    {
-
-    }
 
 }

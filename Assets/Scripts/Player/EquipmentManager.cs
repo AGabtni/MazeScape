@@ -8,8 +8,7 @@ public class EquipmentManager : MonoBehaviour
 
     public static EquipmentManager instance;
     //public MeshRenderer targetMesh;
-    public Transform equipmentParent;
-    Weapon currentWeapon;
+
 
 
     void Awake()
@@ -35,20 +34,26 @@ public class EquipmentManager : MonoBehaviour
     public OnWeaponChanged onWeaponChanged;
 
 
-
+    public EquipmentSlot weaponSlot;
     private Transform _weaponInstance;
     public Transform weaponInstance
     {
         get { return _weaponInstance; }
         private set { _weaponInstance = value; }
     }
-    public EquipmentSlot weaponSlot;
+
+    private Weapon _currentWeapon;
+    public Weapon currentWeapon
+    {
+        get { return _currentWeapon; }
+        private set { _currentWeapon = value; }
+    }
+
     Inventory inventory;	// Reference to our inventory
 
     private void Start()
     {
         inventory = Inventory.instance;
-        weaponSlot.ClearSlot();
 
     }
 
@@ -65,17 +70,23 @@ public class EquipmentManager : MonoBehaviour
         //Spawn weapon
         currentWeapon = newWeapon;
 
-        weaponInstance = Instantiate(currentWeapon.itemPrefab, equipmentParent) as Transform;
-        weaponInstance.localPosition = currentWeapon.PickUp_Position;
-        weaponInstance.localEulerAngles = currentWeapon.PickUp_Rotation;
-        //Remove weapons pickup script
+        weaponInstance = Instantiate(currentWeapon.itemPrefab) as Transform;
+
+        PlayerController _controller = FindObjectOfType<PlayerController>();
+        if (_controller.isAiming)
+            _controller.OnWeaponActive();
+        else
+            _controller.OnWeaponInactive();
+            
+
+        //Remove weapons pickup component
         GameObject.Destroy(weaponInstance.GetComponent<ItemPickup>());
-
-
-        //Add it to equipment slot
+        //Add weapon to an equipment slot
         weaponSlot.AddItem(currentWeapon);
 
     }
+
+
 
     public Weapon UnequipWeapon()
     {
@@ -116,7 +127,7 @@ public class EquipmentManager : MonoBehaviour
     }
 
     //Should be weapon agnostic . 
-    //  Needs to add WEapon Type Member to weapon scriptable item
+    //  Needs to add Weapon Type Member to weapon scriptable item
     public void TriggerWeapon()
     {
 

@@ -23,7 +23,7 @@ public class CameraFollow : MonoBehaviour
     private float rotY = 0.0f;
     private float rotX = 0.0f;
 
-    public bool focus;
+
 
 
     private bool isCameraLocked = false;
@@ -41,7 +41,6 @@ public class CameraFollow : MonoBehaviour
         Vector3 rot = transform.localRotation.eulerAngles;
         rotY = rot.y;
         rotX = rot.x;
-        focus = false;
 
     }
 
@@ -69,47 +68,25 @@ public class CameraFollow : MonoBehaviour
         CameraUpdater();
     }
 
-    public void CameraFocus(Vector3 movement)
-    {
 
-        focus = !focus;
-		transform.LookAt(followPoint.transform.parent.forward);
-		            
-
-    }
     void CameraUpdater()
     {
-        // set the target object to follow
-        if (!focus)
-        {
 
-            rotY += mouseX * inputSensitivity * Time.deltaTime;
-            rotX += mouseY * inputSensitivity * Time.deltaTime;
 
-            rotX = Mathf.Clamp(rotX, -clampAngleX, clampAngleX);
+        rotY += mouseX * inputSensitivity * Time.deltaTime;
+        rotX += mouseY * inputSensitivity * Time.deltaTime;
+
+        rotX = Mathf.Clamp(rotX, -clampAngleX, clampAngleX);
+        if (!FindObjectOfType<PlayerController>().isAiming)
             rotX = Mathf.Clamp(rotX, clampAngleMinY, clampAngleMaxY);
-            Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
-            transform.rotation = localRotation;
+        //else
+        //    rotX = Mathf.Clamp(rotX, clampAngleMaxY, clampAngleMinY);
 
-        }
-        else
-        {
+        Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
+        transform.rotation = localRotation;
 
-            //Camera rotation : 
-            transform.rotation = followPoint.transform.rotation;
-            transform.LookAt(Vector3.RotateTowards(transform.position, followPoint.transform.position, Time.deltaTime, 0.0f));
-	
-        }
-        //move towards the game object that is the target
 
         float step = CameraMoveSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, followPoint.transform.position, step);
-
-
-
-
-
-
 
     }
 
@@ -119,10 +96,5 @@ public class CameraFollow : MonoBehaviour
         Cursor.lockState = isCameraLocked ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = isCameraLocked;
     }
-    public void CameraUnlock()
-    {
-        isCameraLocked = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
+ 
 }

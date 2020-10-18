@@ -8,13 +8,11 @@ public class EquipmentSlot : MonoBehaviour
     //Callback for using item
     public delegate void OnItemUsed();
     public OnItemUsed onItemUsedCallback;
-
     public Item item;
     public Button removeButton;
-
     public Text Amount;
+    
     private Image Icon;
-
     public Category slot_category;
     public void Start()
     {
@@ -25,6 +23,7 @@ public class EquipmentSlot : MonoBehaviour
 
         onItemUsedCallback += UpdateSlot;
 
+        ClearSlot();
     }
 
 

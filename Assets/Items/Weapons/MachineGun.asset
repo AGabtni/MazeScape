@@ -20,5 +20,5 @@ MonoBehaviour:
   itemPrefab: {fileID: 5547645470172325177, guid: 10255176aed2071489e9d078237d04b7,
     type: 3}
   damageModifier: 0
-  PickUp_Position: {x: -0.0506, y: -0.0106, z: -0.0017}
-  PickUp_Rotation: {x: 10, y: -64.37, z: 90}
+  PickUp_Position: {x: -0.057, y: -0.0124, z: -0.0153}
+  PickUp_Rotation: {x: 4.628, y: -89.63, z: 89.44601}

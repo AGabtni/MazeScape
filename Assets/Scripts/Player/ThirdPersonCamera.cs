@@ -2,37 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThirdPersonCamera : MonoBehaviour {
+public class ThirdPersonCamera : MonoBehaviour
+{
 
     public LayerMask ignoreMask;
-	public float minDistance = 1.0f;
-	public float maxDistance = 4.0f;
-	public float smooth = 10.0f;
+    public float minDistance = 1.0f;
+    public float maxDistance = 4.0f;
+    public float smooth = 10.0f;
 
 
-	private Vector3 targetDirection;
-	private float distance;
+    private Vector3 _targetDirection;
+    private float _distance;
 
-	// Use this for initialization
-	void Awake () {
-		targetDirection = transform.localPosition.normalized;
-		distance = transform.localPosition.magnitude;
-		GetComponent<Camera>().cullingMask = ~(1 << LayerMask.NameToLayer("Map"));
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Use this for initialization
+    void Awake()
+    {
+        _targetDirection = transform.localPosition.normalized;
+        _distance = transform.localPosition.magnitude;
+        GetComponent<Camera>().cullingMask = ~(1 << LayerMask.NameToLayer("Map"));
+    }
 
-		Vector3 desiredCameraPos = transform.parent.TransformPoint (targetDirection * maxDistance);
-		RaycastHit hit;
+    // Update is called once per frame
+    void Update()
+    {
 
-		if (Physics.Linecast (transform.parent.position, desiredCameraPos, out hit,ignoreMask )) {
-			distance = Mathf.Clamp ((hit.distance * 0.87f), minDistance, maxDistance);
-				
-				} else {
-					distance = maxDistance;
-				}
+        Vector3 desiredCameraPos = transform.parent.TransformPoint(_targetDirection * maxDistance);
+        RaycastHit hit;
+		
+        //Zoom in when camera hits one of the ignored masks (Wall , door, obstacles)
 
-				transform.localPosition = Vector3.Lerp (transform.localPosition, targetDirection * distance, Time.deltaTime * smooth);
-	}
+        if (Physics.Linecast(transform.parent.position, desiredCameraPos, out hit, ignoreMask))
+            _distance = Mathf.Clamp((hit.distance * 0.87f), minDistance, maxDistance);
+        else
+            _distance = maxDistance;
+
+        transform.localPosition = Vector3.Lerp(transform.localPosition, _targetDirection * _distance, Time.deltaTime * smooth);
+
+    }
 }
