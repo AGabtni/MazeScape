@@ -2,16 +2,23 @@
 
 
 3d platformer made with the Unity Game Engine (w/ C# scripts) .
-Whiteboxing character mechanics and interaction for now . 
+It's a boilerplate for a 3rd person shoot game .
+
+
+## Quick Preview
+
+
+![Preview](Recordings/preview.mp4)
+
 
 ## Development notes
 
 What is implemented so far : 
 
   - Randomly generated Maze - Growing tree algorithm
-  - Navigation Agents (Behaviour needs change when weapon system is complete)
+  - Navigation Agents 
   - Inventory System 
   - Equipment Manager 
-  - Combat system : - Long range weapons (In progress ) 
+  - Combat system : - Long range weapons  
   
   There is a scene for whiteboxing to test the game mechanics .
