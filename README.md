@@ -8,7 +8,7 @@ It's a boilerplate for a 3rd person shoot game .
 ## Quick Preview
 
 
-![Preview](Recordings/preview.mp4)
+![Preview](Recordings/preview.gif)
 
 
 ## Development notes
