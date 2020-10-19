@@ -65,11 +65,11 @@ public class HomeMenu : MonoBehaviour
     void OnSettingsClick()
     {
         //_mainCamera.transform.LookAt(settingsScreen);
-        StartCoroutine("RotateCamera", settingsScreen);
+        //StartCoroutine("RotateCamera", settingsScreen);
     }
     void OnBackClick()
     {
-        StartCoroutine("RotateCamera2", mainScreen);
+        //StartCoroutine("RotateCamera2", mainScreen);
     }
 
     IEnumerator RotateCamera(Transform target)

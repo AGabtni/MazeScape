@@ -13,6 +13,15 @@ public class ThirdPersonCamera : MonoBehaviour
 
     private Vector3 _targetDirection;
     private float _distance;
+    private float _zoomeOutFOV;
+    private float _zoomedInFOV;
+    public float zoomeOutFOV{
+        get {return _zoomeOutFOV;}
+    }
+    public float zoomedInFOV{
+        get {return _zoomedInFOV;}
+    }
+
 
     // Use this for initialization
     void Awake()
@@ -20,6 +29,8 @@ public class ThirdPersonCamera : MonoBehaviour
         _targetDirection = transform.localPosition.normalized;
         _distance = transform.localPosition.magnitude;
         GetComponent<Camera>().cullingMask = ~(1 << LayerMask.NameToLayer("Map"));
+        _zoomeOutFOV = GetComponent<Camera>().fieldOfView;
+        _zoomedInFOV = _zoomeOutFOV/2 ;
     }
 
     // Update is called once per frame

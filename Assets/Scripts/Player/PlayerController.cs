@@ -176,10 +176,14 @@ public class PlayerController : MonoBehaviour
     public void Aim()
     {
 
-
+        
         isAiming = !isAiming;
         ikActive = !ikActive;
         UIManager.instance.UpdateHUD.Invoke(isAiming);
+        if(FindObjectOfType<ThirdPersonCamera>()){
+            ThirdPersonCamera cam = FindObjectOfType<ThirdPersonCamera>();
+            playerCamera.GetComponent<Camera>().fieldOfView = isAiming ? cam.zoomedInFOV : cam.zoomeOutFOV;
+        }
         if (EquipmentManager.instance.weaponInstance != null)
         {
             if (isAiming)

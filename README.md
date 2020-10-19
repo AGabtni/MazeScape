@@ -2,7 +2,7 @@
 
 
 3d platformer made with the Unity Game Engine (w/ C# scripts) .
-It's a boilerplate for a 3rd person shoot game .
+It's a boilerplate for a 3rd person shooter game .
 
 
 ## Quick Preview

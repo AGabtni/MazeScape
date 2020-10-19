@@ -98,6 +98,8 @@ public class GameManager : MonoBehaviour
 
     public void OnReplay()
     {
+
+        /*
         UIManager.instance.ToggleGameMenu();
 
         StopAllCoroutines();
@@ -107,6 +109,10 @@ public class GameManager : MonoBehaviour
             Destroy(_playerInstance.gameObject);
         }
         InstantMaze();
+
+        */
+
+        SceneManager.LoadSceneAsync(1);
     }
 
 }
